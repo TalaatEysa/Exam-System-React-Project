@@ -15,7 +15,7 @@ class ResultResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'exam_name' => $this->exam->name,
+            'exam_name' => $this->exam->exam_name,
             'user_name' => $this->user->name,
             'score' => $this->score,
             'submission_date' => $this->submission_date,
