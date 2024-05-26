@@ -11,13 +11,12 @@ class Question extends Model
 
     protected $fillable = ['exam_id',
         'question_text',
-        'option_a',
-        'option_b',
-        'option_c',
-        'option_d',
-        'correct_option'
     ];
     public function exam(){
         return $this->belongsTo(Exam::class, 'exam_id');
+    }
+    public function options()
+    {
+        return $this->hasMany(Option::class);
     }
 }
