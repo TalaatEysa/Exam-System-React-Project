@@ -25,3 +25,4 @@ Route::resource("exams", ExamController::class);
 Route::get("users",[UserController::class,'index']);
 Route::get("users/{id}",[UserController::class,'show']);
 Route::resource("questions", QuestionController::class);
+Route::resource("results", QuestionController::class);
