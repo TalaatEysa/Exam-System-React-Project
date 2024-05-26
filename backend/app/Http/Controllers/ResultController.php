@@ -17,6 +17,12 @@ class ResultController extends Controller
         return ResultResource::collection($results);
     }
 
+    public function resultsForUser($userID){
+        $results = Result::with(['exam','user'])->where('user_id',$userID)->get();
+        return ResultResource::collection($results);
+
+    }
+
     /**
      * Store a newly created resource in storage.
      */

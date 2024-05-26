@@ -26,4 +26,6 @@ Route::resource("exams", ExamController::class);
 Route::get("users",[UserController::class,'index']);
 Route::get("users/{id}",[UserController::class,'show']);
 Route::resource("questions", QuestionController::class);
-Route::resource("results", ResultController::class);
+Route::get("results",[ ResultController::class, 'index']);
+Route::get("results/{id}",[ ResultController::class, 'resultsForUser']);
+
