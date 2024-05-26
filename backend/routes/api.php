@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ExamController;
+use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -23,3 +24,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::resource("exams", ExamController::class);
 Route::get("users",[UserController::class,'index']);
 Route::get("users/{id}",[UserController::class,'show']);
+Route::resource("questions", QuestionController::class);
