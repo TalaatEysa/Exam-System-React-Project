@@ -28,7 +28,14 @@ class ResultController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'exam_id' => 'required|exists:exams,id',
+            'user_id' => 'required|exists:users,id',
+            'score' => 'required|integer',
+            //'submission_date' => 'required|date',
+        ]);
+        $result = Result::create($validatedData);
+        return new ResultResource($result);
     }
 
     /**

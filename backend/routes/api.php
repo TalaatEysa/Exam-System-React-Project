@@ -27,5 +27,6 @@ Route::get("users",[UserController::class,'index']);
 Route::get("users/{id}",[UserController::class,'show']);
 Route::resource("questions", QuestionController::class);
 Route::get("results",[ ResultController::class, 'index']);
-Route::get("results/{id}",[ ResultController::class, 'resultsForUser']);
+Route::get("results/user/{id}",[ ResultController::class, 'resultsForUser']);
+Route::post("results",[ ResultController::class, 'store']);
 
