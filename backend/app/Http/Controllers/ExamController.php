@@ -25,7 +25,8 @@ class ExamController extends Controller
      */
     public function store(Request $request)
     {
-        $validatedData = $request->validate([
+        try{
+            $validatedData = $request->validate([
             'exam_name' => 'required|string|max:255',
             'description' => 'nullable|string',
             'created_by' => 'required|exists:users,id',
@@ -34,6 +35,9 @@ class ExamController extends Controller
         $exam = Exam::create($validatedData);
         //return response()->json($exam, 201);
         return "Exam added sussefully";
+        }catch(Exception $e){
+            return $e->getMessage();
+        }
     }
 
     /**
@@ -75,9 +79,8 @@ class ExamController extends Controller
      */
     public function destroy(string $id)
     {
-        $exam = Exam::findOrFail($id);
+        //$exam = Exam::findOrFail($id);
         Exam::destroy($id);
         return "Exam deleted sussefully";
-
     }
 }
