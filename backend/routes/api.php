@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ExamController;
 use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\ResultController;
@@ -29,4 +30,10 @@ Route::resource("questions", QuestionController::class);
 Route::get("results",[ ResultController::class, 'index']);
 Route::get("results/user/{id}",[ ResultController::class, 'resultsForUser']);
 Route::post("results",[ ResultController::class, 'store']);
+
+Route::post('register',[AuthController::class,'register']);
+Route::post('login',[AuthController::class,'login']);
+Route::middleware('auth:sanctum')->group(function () {
+    Route::post('/logout', [AuthController::class, 'logout']);
+});
 
