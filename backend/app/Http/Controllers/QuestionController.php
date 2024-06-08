@@ -14,6 +14,7 @@ class QuestionController extends Controller
      */
     public function index()
     {
+        $this->authorize('view_question');
         $questions = Question::with('options')->get();
         return QuestionResource::collection($questions);
     }
@@ -24,6 +25,7 @@ class QuestionController extends Controller
     public function store(Request $request)
     {
         try{
+            $this->authorize('create_question');
             $validatedData = $request->validate([
             'exam_id' => 'required|exists:exams,id',
             'question_text' => 'required|string',
@@ -56,6 +58,7 @@ class QuestionController extends Controller
      */
     public function update(Request $request, string $id)
 {
+    $this->authorize('update_question');
     $validatedData = $request->validate([
         'question_text' => 'sometimes|required|string',
         'options' => 'sometimes|required|array|min:2',
@@ -97,8 +100,13 @@ class QuestionController extends Controller
      */
     public function destroy(string $id)
     {
+        try{
+        $this->authorize('delete_question');
         $question = Question::findOrFail($id);
         $question->delete();
         return "Question deleted sussefully";
+        }catch(Exception $e){
+            return $e->getMessage();
+        }
     }
 }
