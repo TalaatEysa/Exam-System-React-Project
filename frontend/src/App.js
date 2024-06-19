@@ -1,25 +1,63 @@
-import logo from './logo.svg';
 import './App.css';
+import React from 'react';
+import {
+  Route,
+  RouterProvider,
+  createBrowserRouter,
+  createRoutesFromElements,
+  Navigate
+} from "react-router-dom";
+import { LoginComponent } from './LoginComponent';
+import { User } from './User';
+import { Admin } from './Admin';
+
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+  // const isLoggedIn = localStorage.getItem('auth_token');
+  // const user_type = localStorage.getItem('user_type');
+  const router = createBrowserRouter(
+    createRoutesFromElements(
+      <>
+        <Route path="/" element={<Navigate to="/login" />} />
+        <Route index path="/login" element={<LoginComponent />} />
+        <Route path="/user" element={<User />} />
+        <Route path="/admin" element={<Admin />} />
+        {/* <Route
+          path="/user"
+          element={
+            isLoggedIn ? (
+              user_type === 'User' ? (
+                <User />
+              ) : (
+                <Navigate to="/admin" />
+              )
+            ) : (
+              <Navigate to="/login" />
+            )
+          }
+        />
+        <Route
+          path="/admin"
+          element={
+            isLoggedIn ? (
+              user_type === 'Admin' ? (
+                <Admin />
+              ) : (
+                <Navigate to="/user" />
+              )
+            ) : (
+              <Navigate to="/login" />
+            )
+          }
+        /> */}
+      </>
+    )
   );
-}
+  return (
+    <>
+      <RouterProvider router={router} />
+    </>
+  );
+};
 
 export default App;
