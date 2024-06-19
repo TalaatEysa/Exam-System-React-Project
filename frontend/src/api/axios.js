@@ -48,5 +48,15 @@ const addQuestions = () => {
     return axios.get(`${baseUrl}/questions/`, { headers });
 };
 
+const getExamById = (id) => {
+    const token = localStorage.getItem('auth_token'); // Adjust according to how you store the token
 
-export { getAllExams, addExam, addQuestions };
+    // Create headers object
+    const headers = {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json'
+    };
+    return axios.get(`${baseUrl}/exams/${id}`, { headers});
+};
+
+export { getAllExams, addExam, addQuestions, getExamById };
