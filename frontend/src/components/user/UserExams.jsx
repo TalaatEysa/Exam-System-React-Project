@@ -6,7 +6,7 @@ export function UserExams() {
   const [exams, setExams] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const userId = localStorage.getItem('user_id'); // Adjust based on how you store user info
+  const userId = localStorage.getItem('id'); // Adjust based on how you store user info
 
   useEffect(() => {
     const fetchData = async () => {

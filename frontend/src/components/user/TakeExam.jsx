@@ -60,7 +60,7 @@ export function TakeExam() {
     // Prepare data to send to backend
     const resultData = {
       exam_id: exam.id,
-      user_id: localStorage.getItem('user_id'), // Adjust based on how you store user info
+      user_id: localStorage.getItem('id'), // Adjust based on how you store user info
       score: score,
     };
 
@@ -73,7 +73,7 @@ export function TakeExam() {
         },
       });
         alert('Exam submitted successfully!');
-        navigate('/userexams');
+        navigate('/userresults');
         
     } catch (error) {
       console.error('Error submitting exam result:', error);
