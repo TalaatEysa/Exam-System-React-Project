@@ -10,6 +10,7 @@ import { LoginComponent } from './LoginComponent';
 import { User } from './User';
 import { Admin } from './Admin';
 import { SharedLayouts } from './layouts/SharedLayouts';
+import Exams from './components/exams/Exams';
 
 
 function App() {
@@ -23,6 +24,8 @@ function App() {
           <Route path="login" element={<LoginComponent />} />
           <Route path="user" element={<User />} />
           <Route path="admin" element={<Admin />} />
+          <Route path="exams" element={<Exams/>}/>
+          
         </Route>
         {/* <Route
           path="/user"
