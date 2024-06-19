@@ -36,6 +36,14 @@ export function MyNav() {
             className={({ isActive }) =>
               isActive ? 'text-success nav-link' : 'nav-link'
             }
+            to="/userresults"
+          >
+            Results
+          </NavLink>
+          <NavLink
+            className={({ isActive }) =>
+              isActive ? 'text-success nav-link' : 'nav-link'
+            }
             to="/admin"
           >
             Admin
