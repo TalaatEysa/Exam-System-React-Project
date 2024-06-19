@@ -19,7 +19,8 @@ class ExamResource extends JsonResource
             'name' => $this->exam_name,
             'description' => $this->description,
             'duration' => $this->duration,
-            'created_by' => $this->creator->name
+            'created_by' => $this->creator->name,
+            'questions' => QuestionResource::collection($this->questions)
 
         ];
     }

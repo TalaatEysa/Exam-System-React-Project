@@ -15,7 +15,7 @@ class QuestionController extends Controller
     public function index()
     {
         //$this->authorize('view_question');
-        $this->authorize('viewAny');
+        //$this->authorize('viewAny');
         $questions = Question::with('options')->get();
         return QuestionResource::collection($questions);
     }
@@ -27,7 +27,7 @@ class QuestionController extends Controller
     {
         try{
            // $this->authorize('create_question');
-           $this->authorize('create', Question::class);
+           //$this->authorize('create', Question::class);
             $validatedData = $request->validate([
             'exam_id' => 'required|exists:exams,id',
             'question_text' => 'required|string',
@@ -52,7 +52,7 @@ class QuestionController extends Controller
     public function show(string $id)
     {
         $question = Question::with('options')->find($id);
-        $this->authorize('view', $question);
+        //$this->authorize('view', $question);
         return new QuestionResource($question);
     }
 
@@ -70,7 +70,7 @@ class QuestionController extends Controller
     ]);
 
     $question = Question::findOrFail($id);
-    $this->authorize('update', $question);
+    //$this->authorize('update', $question);
 
     if (isset($validatedData['question_text'])) {
         $question->question_text = $validatedData['question_text'];
@@ -106,7 +106,7 @@ class QuestionController extends Controller
 {
     try {
         $question = Question::findOrFail($id);
-        $this->authorize('delete', $question); // Ensure you pass the question instance
+        //$this->authorize('delete', $question); // Ensure you pass the question instance
 
         $question->delete();
 
