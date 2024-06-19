@@ -4,12 +4,12 @@ import {
   Route,
   RouterProvider,
   createBrowserRouter,
-  createRoutesFromElements,
-  Navigate
+  createRoutesFromElements
 } from "react-router-dom";
 import { LoginComponent } from './LoginComponent';
 import { User } from './User';
 import { Admin } from './Admin';
+import { SharedLayouts } from './layouts/SharedLayouts';
 
 
 function App() {
@@ -18,10 +18,12 @@ function App() {
   const router = createBrowserRouter(
     createRoutesFromElements(
       <>
-        <Route path="/" element={<Navigate to="/login" />} />
-        <Route index path="/login" element={<LoginComponent />} />
-        <Route path="/user" element={<User />} />
-        <Route path="/admin" element={<Admin />} />
+        <Route path="/" element={<SharedLayouts />} >
+          <Route index element={<LoginComponent />} />
+          <Route path="login" element={<LoginComponent />} />
+          <Route path="user" element={<User />} />
+          <Route path="admin" element={<Admin />} />
+        </Route>
         {/* <Route
           path="/user"
           element={
