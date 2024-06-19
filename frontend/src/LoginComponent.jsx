@@ -14,7 +14,7 @@ export function LoginComponent() {
     setError('');
 
     try {
-      const response = await axios.post('http://127.0.0.1:8000/api/login', {
+      const response = await axios.post('/login', {
         user_name: userName,
         password: password,
       });
