@@ -23,6 +23,7 @@ export function LoginComponent() {
       localStorage.setItem('auth_token', response.data.access_token);
       localStorage.setItem('user_name', userName);
       localStorage.setItem('user_type', response.data.user_type);
+      localStorage.setItem('id',response.data.id)
       
 
       // Redirect based on user role
