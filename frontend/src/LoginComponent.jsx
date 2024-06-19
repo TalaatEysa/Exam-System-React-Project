@@ -18,11 +18,12 @@ export function LoginComponent() {
         user_name: userName,
         password: password,
       });
-
+      console.log(response);
       // Store the token in local storage or context
       localStorage.setItem('auth_token', response.data.access_token);
       localStorage.setItem('user_name', userName);
       localStorage.setItem('user_type', response.data.user_type);
+      
 
       // Redirect based on user role
       if (response.data.user_type === 'User') {
