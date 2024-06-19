@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import axios from './api/axios'; // Assuming this is your custom axios instance
+import axios from '../api/axios'; // Assuming this is your custom axios instance
 import { useNavigate } from 'react-router-dom';
 import { Form, Button, Container, Row, Col } from 'react-bootstrap';
 
