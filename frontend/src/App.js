@@ -6,7 +6,7 @@ import {
   createBrowserRouter,
   createRoutesFromElements
 } from "react-router-dom";
-import { LoginComponent } from './LoginComponent';
+import { LoginComponent } from './components/LoginComponent';
 import { User } from './User';
 import { Admin } from './Admin';
 import { SharedLayouts } from './layouts/SharedLayouts';
