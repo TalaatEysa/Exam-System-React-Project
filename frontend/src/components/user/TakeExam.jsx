@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { getExamById } from '../../api/axios';
 import axios from '../../api/axios';
 
@@ -10,6 +10,9 @@ export function TakeExam() {
   const [error, setError] = useState(null);
   const [answers, setAnswers] = useState({});
   const [score, setScore] = useState(null);
+  const navigate = useNavigate();
+    
+  
 
   useEffect(() => {
     const fetchExam = async () => {
@@ -69,7 +72,9 @@ export function TakeExam() {
           'Content-Type': 'application/json',
         },
       });
-      alert('Exam submitted successfully!');
+        alert('Exam submitted successfully!');
+        navigate('/userexams');
+        
     } catch (error) {
       console.error('Error submitting exam result:', error);
       alert('Failed to submit exam. Please try again.');
