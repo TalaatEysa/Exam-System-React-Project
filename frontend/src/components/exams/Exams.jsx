@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { getAllExams } from '../../api/axios';
+import { Link } from 'react-router-dom';
 
 
 export default function Exams() {
@@ -31,6 +32,7 @@ export default function Exams() {
   return (
     <>
     <div className="container mt-4">
+            <Link to={`/addExam`} className='btn btn-success'>Create Exam</Link>      
             <h1 className="mb-4">Exams</h1>
             {loading && <div>Loading...</div>} {/* Display loading message */}
             {error && <div className="alert alert-danger">{error}</div>} {/* Display error message */}
@@ -41,7 +43,7 @@ export default function Exams() {
                             <div className="card-body">
                                 <h5 className="card-title">{exam.title}</h5>
                                 <p className="card-text">{exam.description}</p>
-                                <a href={`/exams/${exam.id}`} className="btn btn-primary">View</a>
+                                <Link to={`/exams/${exam.id}`} className='btn btn-primary'>View</Link>
                             </div>
                         </div>
                     </div>
