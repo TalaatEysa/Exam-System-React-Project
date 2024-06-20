@@ -75,7 +75,7 @@ export default function Exams() {
                                 <p className="card-text">Description: {exam.description}</p>
                                 <Link to={`/exams/${exam.id}`} className='btn btn-primary mx-1'>View</Link>
                                 <button onClick={() => handleDelete(exam.id)} className='btn btn-danger mx-1'>Delete</button>
-                                <Link to={`/exams/editExam`} className='btn btn-warning mx-1'>Update</Link>
+                                <Link to={`/exams/editExam/${exam.id}`} className='btn btn-warning mx-1'>Update</Link>
                             </div>
                         </div>
                     </div>
