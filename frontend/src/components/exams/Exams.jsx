@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { getAllExams } from '../../api/axios';
+import { getAllExams , deleteExamById } from '../../api/axios';
 import { Link } from 'react-router-dom';
 
 
@@ -28,6 +28,17 @@ export default function Exams() {
         fetchData();
     }, []); 
 
+    const handleDelete = async (examId) => {
+        if (window.confirm('Are you sure you want to delete this exam?')) {
+            try {
+                await deleteExamById(examId);
+                setExams(exams.filter(exam => exam.id !== examId));
+            } catch (error) {
+                setError('Failed to delete the exam. Please try again.');
+            }
+        }
+    };
+
 
   return (
     <>
@@ -43,7 +54,8 @@ export default function Exams() {
                             <div className="card-body">
                                 <h5 className="card-title">Name: {exam.name}</h5>
                                 <p className="card-text">Description: {exam.description}</p>
-                                <Link to={`/exams/${exam.id}`} className='btn btn-primary'>View</Link>
+                                <Link to={`/exams/${exam.id}`} className='btn btn-primary mx-1'>View</Link>
+                                <button onClick={() => handleDelete(exam.id)} className='btn btn-danger mx-1'>Delete</button>
                             </div>
                         </div>
                     </div>

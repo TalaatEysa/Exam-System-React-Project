@@ -79,7 +79,7 @@ const addQuestions = async (questionData) => {
 };
 
 
-const delteExamById = (id) => {
+const deleteExamById = (id) => {
     const token = localStorage.getItem('auth_token'); // Adjust according to how you store the token
 
     // Create headers object
@@ -100,4 +100,4 @@ const getUserResults = (userId) => {
     return axios.get(`${baseUrl}/results/user/${userId}`, { headers });
 };
 
-export { getAllExams, addExam, addQuestions, getExamById ,getExamByID,getUserResults , delteExamById };
+export { getAllExams, addExam, addQuestions, getExamById ,getExamByID,getUserResults , deleteExamById };
