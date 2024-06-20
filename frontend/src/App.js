@@ -17,6 +17,8 @@ import { UserExams } from './components/user/UserExams';
 import { TakeExam } from './components/user/TakeExam';
 import { UserResults } from './components/user/UserResults';
 import EditExam from './components/exams/EditExam';
+import ProtectedRoute from './components/ProtectedRoute';
+import { NotFound } from './components/NotFound';
 
 function App() {
   // const isLoggedIn = localStorage.getItem('auth_token');
@@ -34,10 +36,24 @@ function App() {
           <Route path='/exams/editExam/:examId' element={<EditExam/>}/>
           <Route path="/exams/:examId/addQuestions" element={<AddQuestions/>}/>
           <Route path="register" element={<StudentRegistration />} />
-          <Route path="userexams" element={<UserExams />} />
-          <Route path="userexams/:id" element={<TakeExam />} />
-          <Route path="userresults" element={<UserResults />} />
+          {/* <Route path="userexams" element={<UserExams />} /> */}
+          {/* <Route path="userexams/:id" element={<TakeExam />} /> */}
+          {/* <Route path="userresults" element={<UserResults />} /> */}
+          <Route
+            path="userexams"
+            element={<ProtectedRoute element={UserExams} allowedRoles={['User']} />}
+          />
+          <Route
+            path="userexams/:id"
+            element={<ProtectedRoute element={TakeExam} allowedRoles={['User']} />}
+          />
+          <Route
+            path="userresults"
+            element={<ProtectedRoute element={UserResults} allowedRoles={['User']} />}
+          />
         </Route>
+        <Route path="*" element={<NotFound />} />
+
         {/* <Route
           path="/user"
           element={

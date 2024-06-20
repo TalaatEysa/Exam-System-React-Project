@@ -1,45 +1,30 @@
 import React from 'react';
 import { Container, Nav, Navbar } from 'react-bootstrap';
 import { NavLink, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { logout } from '../Store/authSlice';
 
 export function MyNav() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { user } = useSelector((state) => state.auth);
 
   const handleLogout = () => {
-    // Clear local storage (remove tokens and user info)
-    localStorage.removeItem('auth_token');
-    localStorage.removeItem('user_name');
-    localStorage.removeItem('user_type');
-    localStorage.removeItem('user_id');
-
-    // Redirect to login page
+    dispatch(logout());
     navigate('/login');
   };
-
-  // Check if user is authenticated
-  const isLoggedIn = localStorage.getItem('auth_token');
 
   return (
     <Navbar bg="light" data-bs-theme="light">
       <Container>
         <h3>Exam System</h3>
         <Nav className="ms-auto">
-          {isLoggedIn ? (
+          {user ? (
             <>
-              <NavLink
-                className={({ isActive }) =>
-                  isActive ? 'text-success nav-link' : 'nav-link'
-                }
-                to="/userexams"
-              >
+              <NavLink className="nav-link" to="/userexams">
                 Exams
               </NavLink>
-              <NavLink
-                className={({ isActive }) =>
-                  isActive ? 'text-success nav-link' : 'nav-link'
-                }
-                to="/userresults"
-              >
+              <NavLink className="nav-link" to="/userresults">
                 Results
               </NavLink>
               <Nav.Link className="nav-link" onClick={handleLogout}>
@@ -48,20 +33,10 @@ export function MyNav() {
             </>
           ) : (
             <>
-              <NavLink
-                className={({ isActive }) =>
-                  isActive ? 'text-success nav-link' : 'nav-link'
-                }
-                to="/login"
-              >
+              <NavLink className="nav-link" to="/login">
                 Login
               </NavLink>
-              <NavLink
-                className={({ isActive }) =>
-                  isActive ? 'text-success nav-link' : 'nav-link'
-                }
-                to="/register"
-              >
+              <NavLink className="nav-link" to="/register">
                 Register
               </NavLink>
             </>

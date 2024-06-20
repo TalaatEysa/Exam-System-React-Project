@@ -1,38 +1,29 @@
+/* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
-import axios from '../api/axios'; // Assuming this is your custom axios instance
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, Link } from 'react-router-dom';
 import { Form, Button, Container, Row, Col } from 'react-bootstrap';
+import { login } from '../Store/authSlice';
 
 export function LoginComponent() {
   const [userName, setUserName] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { user, status, error } = useSelector((state) => state.auth);
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    setError('');
-
-    try {
-      const response = await axios.post('/login', {
-        user_name: userName,
-        password: password,
-      });
-      console.log(response);
-      // Store the token in local storage or context
-      localStorage.setItem('auth_token', response.data.access_token);
-      localStorage.setItem('user_name', userName);
-      localStorage.setItem('user_type', response.data.user_type);
-      localStorage.setItem('id', response.data.id);
-
-      // Redirect based on user role
-      if (response.data.user_type === 'User') {
+    const resultAction = await dispatch(
+      login({ user_name: userName, password }),
+    );
+    if (login.fulfilled.match(resultAction)) {
+      const userType = resultAction.payload.user_type;
+      if (userType === 'User') {
         navigate('/userexams');
-      } else if (response.data.user_type === 'Admin') {
+      } else if (userType === 'Admin') {
         navigate('/exams');
       }
-    } catch (err) {
-      setError('Login failed. Please check your credentials and try again.');
     }
   };
 
@@ -62,15 +53,18 @@ export function LoginComponent() {
               />
             </Form.Group>
 
-            {error && <p className="error">{error}</p>}
+            {status === 'failed' && <p className="error">{error}</p>}
 
-            <Button variant="primary" type="submit">
-              Login
+            <Button
+              variant="primary"
+              type="submit"
+              disabled={status === 'loading'}
+            >
+              {status === 'loading' ? 'Logging in...' : 'Login'}
             </Button>
           </Form>
           <p className="mt-3">
-            Don't have an account?{' '}
-            <Link to="/register">Register Now</Link>
+            Don't have an account? <Link to="/register">Register Now</Link>
           </p>
         </Col>
       </Row>
