@@ -100,4 +100,4 @@ const getUserResults = (userId) => {
     return axios.get(`${baseUrl}/results/user/${userId}`, { headers });
 };
 
-export { getAllExams, addExam, addQuestions, getExamById ,getExamByID,getUserResults };
+export { getAllExams, addExam, addQuestions, getExamById ,getExamByID,getUserResults , delteExamById };
