@@ -62,7 +62,7 @@ export default function Exams() {
   return (
     <>
     <div className="container mt-4">
-            <Link to={`/addExam`} className='btn btn-success'>Create Exam</Link>      
+            <Link to={`/admin/addExam`} className='btn btn-success'>Create Exam</Link>      
             <h1 className="mb-4">Exams</h1>
             {loading && <div>Loading...</div>} {/* Display loading message */}
             {error && <div className="alert alert-danger">{error}</div>} {/* Display error message */}
@@ -73,9 +73,9 @@ export default function Exams() {
                             <div className="card-body">
                                 <h5 className="card-title">Name: {exam.name}</h5>
                                 <p className="card-text">Description: {exam.description}</p>
-                                <Link to={`/exams/${exam.id}`} className='btn btn-primary mx-1'>View</Link>
+                                <Link to={`/admin/exams/${exam.id}`} className='btn btn-primary mx-1'>View</Link>
                                 <button onClick={() => handleDelete(exam.id)} className='btn btn-danger mx-1'>Delete</button>
-                                <Link to={`/exams/editExam/${exam.id}`} className='btn btn-warning mx-1'>Update</Link>
+                                <Link to={`/admin/exams/editExam/${exam.id}`} className='btn btn-warning mx-1'>Update</Link>
                             </div>
                         </div>
                     </div>
