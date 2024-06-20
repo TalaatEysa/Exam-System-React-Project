@@ -126,6 +126,17 @@ const updateQuestion = async (questionData , quesId) => {
     }
 };
 
+const deleteQuestionById = (id) => {
+    const token = localStorage.getItem('auth_token'); // Adjust according to how you store the token
+
+    // Create headers object
+    const headers = {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json'
+    };
+    return axios.delete(`${baseUrl}/questions/${id}`, { headers});
+};
+
 
 const getUserResults = (userId) => {
     const token = localStorage.getItem('auth_token');
@@ -137,4 +148,4 @@ const getUserResults = (userId) => {
 };
 
 export { getAllExams, addExam, addQuestions, getExamById ,getExamByID,getUserResults 
-    , deleteExamById , updateExam, updateQuestion };
+    , deleteExamById , updateExam, updateQuestion, deleteQuestionById };

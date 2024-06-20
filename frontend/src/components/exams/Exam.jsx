@@ -26,7 +26,7 @@ export default function Exam() {
 
         fetchExam();
     }, [examId]);
-console.log("exam data is: " , examData);
+    console.log("exam data is: ", examData);
     if (loading) {
         return <div>Loading...</div>;
     }
@@ -48,12 +48,12 @@ console.log("exam data is: " , examData);
             <p><strong>Created by:</strong> {examData.created_by}</p>
 
             <h2>Questions</h2>
-            
+
             {examData.questions && examData.questions.length > 0 ? (
                 examData.questions.map((question) => (
-                    
+
                     <div key={question.id} className="question">
-                        
+
                         <h3>{question.question_text}</h3>
                         <ul>
                             {question.options.map((option) => (
@@ -63,15 +63,15 @@ console.log("exam data is: " , examData);
                             ))}
                         </ul>
                         <Link
-    to={`editQuestion/${question.id}`}
-    state={{ question }}  // Correct way to pass the state
-    className='btn btn-warning'
->
-    Update
-</Link>
-                        
+                            to={`editQuestion/${question.id}`}
+                            state={{ question }}  // Correct way to pass the state
+                            className='btn btn-warning mx-1'
+                        >
+                            Update
+                        </Link>
+                        <button className='btn btn-danger mx-1'>Delete</button>    
                     </div>
-                    
+
                 ))
             ) : (
                 <p>No questions available for this exam.</p>
