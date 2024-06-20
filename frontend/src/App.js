@@ -33,7 +33,7 @@ function App() {
           <Route path="exams" element={<Exams/>}/>
           <Route path="/exams/:id" element={<Exam />} />
           <Route path="addExam" element={<AddExam/>}/>
-          <Route path="addQuestions" element={<AddQuestions/>}/>
+          <Route path="/exams/:examId/addQuestions" element={<AddQuestions/>}/>
 
 
 

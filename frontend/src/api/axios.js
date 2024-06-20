@@ -61,18 +61,21 @@ const addExam = () => {
     return axios.get(`${baseUrl}/exams/`, { headers });
 };
 
-const addQuestions = () => {
-    // Retrieve the token from local storage (or any other secure place)
-    const token = localStorage.getItem('auth_token'); // Adjust according to how you store the token
+const addQuestions = async (questionData) => {
+  const token = localStorage.getItem('auth_token'); // Adjust according to your token storage
 
-    // Create headers object
-    const headers = {
-        'Authorization': `Bearer ${token}`,
-        'Content-Type': 'application/json'
-    };
+  const headers = {
+    'Authorization': `Bearer ${token}`,
+    'Content-Type': 'application/json'
+  };
 
-    // Make the API request with headers
-    return axios.get(`${baseUrl}/questions/`, { headers });
+  try {
+    const response = await axios.post('http://127.0.0.1:8000/api/questions/', questionData, { headers });
+    return response.data;
+  } catch (error) {
+    console.error('Error adding question', error);
+    throw error;
+  }
 };
 
 

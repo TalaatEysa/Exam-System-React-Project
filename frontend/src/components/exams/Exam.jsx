@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { getExamByID } from '../../api/axios';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import '../../css/Exam.css';
 
 export default function Exam() {
@@ -41,6 +41,7 @@ console.log("exam data is: " , examData);
 
     return (
         <div className="exam-container">
+            <Link to={`addQuestions`} className='btn btn-success'>Add Questions</Link>
             <h1>Name: {examData.name}</h1>
             <p><strong>Description:</strong> {examData.description}</p>
             <p><strong>Duration:</strong> {examData.duration} minutes</p>
