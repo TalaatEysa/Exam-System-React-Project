@@ -9,14 +9,34 @@ export default function AddExam() {
     description: '',
     duration: ''
   });
+  const [errors, setErrors] = useState({}); // State for error messages
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setExam({ ...exam, [name]: value });
   };
 
+  const validateForm = () => {
+    const errors = {};
+    if (!exam.exam_name.trim()) {
+      errors.exam_name = 'Exam name is required.';
+    }
+    if (!exam.description.trim()) {
+      errors.description = 'Description is required.';
+    }
+    if (!exam.duration || exam.duration <= 0) {
+      errors.duration = 'Duration must be a positive number.';
+    }
+    return errors;
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const validationErrors = validateForm();
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors);
+      return;
+    }
 
     try {
       const token = localStorage.getItem('auth_token');
@@ -36,6 +56,9 @@ export default function AddExam() {
       console.log('Exam created successfully:', response.data);
 
       alert('Exam added successfully!');
+      // Reset form and errors
+      setExam({ exam_name: '', description: '', duration: '' });
+      setErrors({});
     } catch (error) {
       console.error('Error adding exam:', error);
       alert('An error occurred while adding the exam.');
@@ -43,8 +66,6 @@ export default function AddExam() {
   };
 
   return (
-    <>
-    
     <div className="add-exam-container">
       <h1>Add Exam</h1>
       <form className="exam-form" onSubmit={handleSubmit}>
@@ -59,6 +80,7 @@ export default function AddExam() {
             placeholder="Enter exam name"
             required
           />
+          {errors.exam_name && <span className="error text-danger">{errors.exam_name}</span>}
         </div>
         <div className="form-group">
           <label htmlFor="description">Description</label>
@@ -68,7 +90,9 @@ export default function AddExam() {
             value={exam.description}
             onChange={handleInputChange}
             placeholder="Enter exam description"
+            required
           />
+          {errors.description && <span className="error text-danger">{errors.description}</span>}
         </div>
         <div className="form-group">
           <label htmlFor="duration">Duration (minutes)</label>
@@ -81,10 +105,10 @@ export default function AddExam() {
             placeholder="Enter exam duration"
             required
           />
+          {errors.duration && <span className="error text-danger">{errors.duration}</span>}
         </div>
         <button type="submit" className="submit-button">Submit</button>
       </form>
     </div>
-    </>
   );
 }

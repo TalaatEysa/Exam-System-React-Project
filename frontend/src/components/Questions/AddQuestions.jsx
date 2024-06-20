@@ -11,6 +11,7 @@ const AddQuestions = () => {
     { option_text: '', is_correct: false },
     { option_text: '', is_correct: false }
   ]);
+  const [validationErrors, setValidationErrors] = useState({});
 
   const handleOptionChange = (index, field, value) => {
     const newOptions = [...options];
@@ -22,29 +23,53 @@ const AddQuestions = () => {
     setOptions([...options, { option_text: '', is_correct: false }]);
   };
 
+  const validateForm = () => {
+    const errors = {};
+    if (!questionText.trim()) {
+      errors.questionText = 'Question text is required.';
+    }
+    if (options.length < 2) {
+      errors.options = 'At least two options are required.';
+    }
+    options.forEach((option, index) => {
+      if (!option.option_text.trim()) {
+        errors[`option${index}`] = `Option ${index + 1} text is required.`;
+      }
+    });
+    if (!options.some(option => option.is_correct)) {
+      errors.correctOption = 'At least one option must be marked as correct.';
+    }
+    return errors;
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    const validationErrors = validateForm();
+    if (Object.keys(validationErrors).length > 0) {
+      setValidationErrors(validationErrors);
+      return;
+    }
     const questionData = {
       exam_id: examId,
       question_text: questionText,
       options: options
     };
-
     try {
       const response = await addQuestions(questionData);
       console.log('Question added successfully', response);
-
-      // Show success alert
       Swal.fire({
         icon: 'success',
         title: 'Question Added',
         text: 'The question has been added successfully!',
       });
+      setQuestionText('');
+      setOptions([
+        { option_text: '', is_correct: false },
+        { option_text: '', is_correct: false }
+      ]);
+      setValidationErrors({});
     } catch (error) {
       console.error('Error adding question', error);
-
-      // Show error alert
       Swal.fire({
         icon: 'error',
         title: 'Error',
@@ -64,6 +89,7 @@ const AddQuestions = () => {
           className="form-input"
           placeholder="Enter your question here"
         />
+        {validationErrors.questionText && <span className="text-danger">{validationErrors.questionText}</span>}
       </div>
       <div className="form-group">
         {options.map((option, index) => (
@@ -76,6 +102,7 @@ const AddQuestions = () => {
               className="form-input"
               placeholder={`Option ${index + 1}`}
             />
+            {validationErrors[`option${index}`] && <span className="text-danger">{validationErrors[`option${index}`]}</span>}
             <label className="correct-label">
               <input
                 type="checkbox"
@@ -87,6 +114,8 @@ const AddQuestions = () => {
             </label>
           </div>
         ))}
+        {validationErrors.options && <span className="text-danger">{validationErrors.options}</span>}
+        {validationErrors.correctOption && <span className="text-danger">{validationErrors.correctOption}</span>}
         <button type="button" onClick={addOption} className="add-option-button">Add Option</button>
       </div>
       <button type="submit" className="submit-button">Add Question</button>

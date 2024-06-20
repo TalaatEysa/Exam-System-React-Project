@@ -7,20 +7,18 @@ export default function EditExam() {
     const navigate = useNavigate();
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-    const [exam, setExam] = useState(null);
     const [formData, setFormData] = useState({
         exam_name: '',
         description: '',
         created_by: '',
         duration: ''
     });
+    const [validationErrors, setValidationErrors] = useState({}); // State for validation errors
 
     useEffect(() => {
         const fetchExam = async () => {
             try {
                 const response = await getExamByID(examId);
-                setExam(response); // Set the fetched exam data
-                //console.log(response)
                 setFormData({
                     exam_name: response.data.name,
                     description: response.data.description,
@@ -44,11 +42,29 @@ export default function EditExam() {
         });
     };
 
+    const validateForm = () => {
+        const errors = {};
+        if (!formData.exam_name.trim()) {
+            errors.exam_name = 'Exam name is required.';
+        }
+        if (!formData.description.trim()) {
+            errors.description = 'Description is required.';
+        }
+        if (!formData.duration || formData.duration <= 0) {
+            errors.duration = 'Duration must be a positive number.';
+        }
+        return errors;
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
+        const validationErrors = validateForm();
+        if (Object.keys(validationErrors).length > 0) {
+            setValidationErrors(validationErrors);
+            return;
+        }
         try {
-            await updateExam( formData ,examId);
-            // Optionally, show a success message or navigate to a different page
+            await updateExam(formData, examId);
             console.log('Exam updated successfully');
             navigate(`/exams/${examId}`);
         } catch (error) {
@@ -63,7 +79,7 @@ export default function EditExam() {
     if (error) {
         return <div className="alert alert-danger">{error}</div>;
     }
-console.log("form data is",formData);
+
     return (
         <div className="container mt-4">
             <h1>Edit Exam</h1>
@@ -79,6 +95,7 @@ console.log("form data is",formData);
                         onChange={handleChange}
                         required
                     />
+                    {validationErrors.exam_name && <span className="text-danger">{validationErrors.exam_name}</span>}
                 </div>
                 <div className="form-group">
                     <label htmlFor="description">Description</label>
@@ -89,6 +106,7 @@ console.log("form data is",formData);
                         value={formData.description}
                         onChange={handleChange}
                     ></textarea>
+                    {validationErrors.description && <span className="text-danger">{validationErrors.description}</span>}
                 </div>
                 <div className="form-group">
                     <label htmlFor="duration">Duration (minutes)</label>
@@ -101,6 +119,7 @@ console.log("form data is",formData);
                         onChange={handleChange}
                         required
                     />
+                    {validationErrors.duration && <span className="text-danger">{validationErrors.duration}</span>}
                 </div>
                 <button type="submit" className="btn btn-primary">Save Changes</button>
             </form>

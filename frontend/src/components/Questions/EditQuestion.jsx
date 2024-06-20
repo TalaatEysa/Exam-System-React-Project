@@ -13,6 +13,7 @@ export default function EditQuestion() {
         question_text: '',
         options: [{ option_text: '', is_correct: false }]
     });
+    const [validationErrors, setValidationErrors] = useState({});
 
     useEffect(() => {
         if (question) {
@@ -43,8 +44,29 @@ export default function EditQuestion() {
         });
     };
 
+    const validateForm = () => {
+        const errors = {};
+        if (!formData.question_text.trim()) {
+            errors.question_text = 'Question text is required.';
+        }
+        formData.options.forEach((option, index) => {
+            if (!option.option_text.trim()) {
+                errors[`option_${index}`] = `Option ${index + 1} text is required.`;
+            }
+        });
+        if (!formData.options.some(option => option.is_correct)) {
+            errors.correctOption = 'At least one option must be marked as correct.';
+        }
+        return errors;
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
+        const validationErrors = validateForm();
+        if (Object.keys(validationErrors).length > 0) {
+            setValidationErrors(validationErrors);
+            return;
+        }
         try {
             await updateQuestion(formData, questionId);
             navigate(`/exams/${question.exam_id}`); // Navigate back to the exam page
@@ -72,6 +94,7 @@ export default function EditQuestion() {
                         onChange={handleQuestionChange}
                         required
                     />
+                    {validationErrors.question_text && <span className="text-danger">{validationErrors.question_text}</span>}
                 </div>
                 {formData.options.map((option, index) => (
                     <div key={index} className="form-group">
@@ -85,6 +108,7 @@ export default function EditQuestion() {
                             onChange={(e) => handleOptionChange(index, e)}
                             required
                         />
+                        {validationErrors[`option_${index}`] && <span className="text-danger">{validationErrors[`option_${index}`]}</span>}
                         <label>
                             <input
                                 type="checkbox"
@@ -95,6 +119,7 @@ export default function EditQuestion() {
                         </label>
                     </div>
                 ))}
+                {validationErrors.correctOption && <span className="text-danger">{validationErrors.correctOption}</span>}
                 <button type="submit" className="btn btn-primary">Save Changes</button>
             </form>
         </div>
