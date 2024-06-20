@@ -61,7 +61,7 @@ console.log("exam data is: " , examData);
                                 </li>
                             ))}
                         </ul>
-                        <button className='btn btn-warning'>Update</button>
+                        <Link to={'editQuestion'} className='btn btn-warning'>Update</Link>
                     </div>
                 ))
             ) : (

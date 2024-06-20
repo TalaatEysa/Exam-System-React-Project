@@ -108,6 +108,24 @@ const updateExam = async (examData , examId) => {
     }
 };
 
+const updateQuestion = async (questionData , quesId) => {
+    const token = localStorage.getItem('auth_token');
+
+    // Headers with authorization token
+    const headers = {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json'
+    };
+
+    try {
+        const response = await axios.patch(`${baseUrl}/questions/${quesId}`, questionData, { headers });
+        return response.data;
+    } catch (error) {
+        console.error('Error updating Question:', error.response || error.message);
+        throw error;
+    }
+};
+
 
 const getUserResults = (userId) => {
     const token = localStorage.getItem('auth_token');
@@ -118,4 +136,5 @@ const getUserResults = (userId) => {
     return axios.get(`${baseUrl}/results/user/${userId}`, { headers });
 };
 
-export { getAllExams, addExam, addQuestions, getExamById ,getExamByID,getUserResults , deleteExamById , updateExam };
+export { getAllExams, addExam, addQuestions, getExamById ,getExamByID,getUserResults 
+    , deleteExamById , updateExam, updateQuestion };

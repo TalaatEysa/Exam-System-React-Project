@@ -36,7 +36,7 @@ function App() {
           <Route path="addExam" element={<AddExam />} />
           <Route path='/exams/editExam/:examId' element={<EditExam/>}/>
           <Route path="/exams/:examId/addQuestions" element={<AddQuestions/>}/>
-          <Route path="/exams/:examId/editQuestions" element={<EditQuestion/>}/>
+          <Route path="/exams/:examId/editQuestion" element={<EditQuestion/>}/>
           <Route path="register" element={<StudentRegistration />} />
           {/* <Route path="userexams" element={<UserExams />} /> */}
           {/* <Route path="userexams/:id" element={<TakeExam />} /> */}
