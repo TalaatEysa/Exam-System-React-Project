@@ -51,6 +51,7 @@ console.log("exam data is: " , examData);
             
             {examData.questions && examData.questions.length > 0 ? (
                 examData.questions.map((question) => (
+                    
                     <div key={question.id} className="question">
                         
                         <h3>{question.question_text}</h3>
@@ -61,8 +62,16 @@ console.log("exam data is: " , examData);
                                 </li>
                             ))}
                         </ul>
-                        <Link to={'editQuestion'} className='btn btn-warning'>Update</Link>
+                        <Link
+    to={`editQuestion/${question.id}`}
+    state={{ question }}  // Correct way to pass the state
+    className='btn btn-warning'
+>
+    Update
+</Link>
+                        
                     </div>
+                    
                 ))
             ) : (
                 <p>No questions available for this exam.</p>
