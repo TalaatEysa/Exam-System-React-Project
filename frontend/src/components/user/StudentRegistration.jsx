@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import axios from '../../api/axios';
 import "../../css/StudentRegistration.css";
+import { useNavigate } from "react-router-dom";
 
 const StudentRegistration = () => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: '',
     user_name: '',
@@ -39,6 +41,7 @@ const StudentRegistration = () => {
       const response = await axios.post('/register', formData);
       console.log('Registration successful!', response.data);
       setRegistrationSuccess(true); 
+      navigate('/login');
     } catch (error) {
       if (error.response && error.response.data) {
         const serverErrors = error.response.data.errors || {};
