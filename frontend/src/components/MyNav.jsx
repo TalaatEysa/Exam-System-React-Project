@@ -24,56 +24,64 @@ export function MyNav() {
       <Container>
         <h3>Exam System</h3>
         <Nav className="ms-auto">
-          <NavLink
-            className={({ isActive }) =>
-              isActive ? 'text-success nav-link' : 'nav-link'
-            }
-            to="/userexams"
-          >
-            Exams
-          </NavLink>
-          <NavLink
-            className={({ isActive }) =>
-              isActive ? 'text-success nav-link' : 'nav-link'
-            }
-            to="/userresults"
-          >
-            Results
-          </NavLink>
-          <NavLink
-            className={({ isActive }) =>
-              isActive ? 'text-success nav-link' : 'nav-link'
-            }
-            to="/admin"
-          >
-            Admin
-          </NavLink>
-          <NavLink
-            className={({ isActive }) =>
-              isActive ? 'text-primary nav-link' : 'nav-link'
-            }
-            to="/user"
-          >
-            User
-          </NavLink>
           {isLoggedIn ? (
-            <Nav.Link className="nav-link" onClick={handleLogout}>
-              Logout
-            </Nav.Link>
+            <>
+              <NavLink
+                className={({ isActive }) =>
+                  isActive ? 'text-success nav-link' : 'nav-link'
+                }
+                to="/userexams"
+              >
+                Exams
+              </NavLink>
+              <NavLink
+                className={({ isActive }) =>
+                  isActive ? 'text-success nav-link' : 'nav-link'
+                }
+                to="/userresults"
+              >
+                Results
+              </NavLink>
+              <NavLink
+                className={({ isActive }) =>
+                  isActive ? 'text-primary nav-link' : 'nav-link'
+                }
+                to="/user"
+              >
+                User
+              </NavLink>
+              <NavLink
+                className={({ isActive }) =>
+                  isActive ? 'text-success nav-link' : 'nav-link'
+                }
+                to="/admin"
+              >
+                Admin
+              </NavLink>
+              <Nav.Link className="nav-link" onClick={handleLogout}>
+                Logout
+              </Nav.Link>
+            </>
           ) : (
-            <NavLink
-              className={({ isActive }) =>
-                isActive ? 'text-success nav-link' : 'nav-link'
-              }
-              to="/login"
-            >
-              Login
-            </NavLink>
-
-            
+            <>
+              <NavLink
+                className={({ isActive }) =>
+                  isActive ? 'text-success nav-link' : 'nav-link'
+                }
+                to="/login"
+              >
+                Login
+              </NavLink>
+              <NavLink
+                className={({ isActive }) =>
+                  isActive ? 'text-success nav-link' : 'nav-link'
+                }
+                to="/register"
+              >
+                Register
+              </NavLink>
+            </>
           )}
-
-          
         </Nav>
       </Container>
     </Navbar>
