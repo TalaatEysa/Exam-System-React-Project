@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { getAllExams , deleteExamById } from '../../api/axios';
 import { Link } from 'react-router-dom';
+import Swal from 'sweetalert2';
+
 
 
 export default function Exams() {
@@ -29,15 +31,32 @@ export default function Exams() {
     }, []); 
 
     const handleDelete = async (examId) => {
-        if (window.confirm('Are you sure you want to delete this exam?')) {
+    // Display SweetAlert confirmation dialog
+    Swal.fire({
+        title: 'Are you sure?',
+        text: 'You will not be able to recover this exam!',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it'
+    }).then(async (result) => {
+        if (result.isConfirmed) {
             try {
                 await deleteExamById(examId);
                 setExams(exams.filter(exam => exam.id !== examId));
+                Swal.fire(
+                    'Deleted!',
+                    'The exam has been deleted.',
+                    'success'
+                );
             } catch (error) {
                 setError('Failed to delete the exam. Please try again.');
             }
         }
-    };
+    });
+};
+
 
 
   return (
