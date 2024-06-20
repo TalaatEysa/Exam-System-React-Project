@@ -36,7 +36,16 @@ const getExamByID = async (examId) => {
         throw error;
     }
 };
+const getExamById = (id) => {
+    const token = localStorage.getItem('auth_token'); // Adjust according to how you store the token
 
+    // Create headers object
+    const headers = {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json'
+    };
+    return axios.get(`${baseUrl}/exams/${id}`, { headers});
+};
 
 const addExam = () => {
     // Retrieve the token from local storage (or any other secure place)
@@ -66,16 +75,7 @@ const addQuestions = () => {
     return axios.get(`${baseUrl}/questions/`, { headers });
 };
 
-const getExamById = (id) => {
-    const token = localStorage.getItem('auth_token'); // Adjust according to how you store the token
 
-    // Create headers object
-    const headers = {
-        'Authorization': `Bearer ${token}`,
-        'Content-Type': 'application/json'
-    };
-    return axios.get(`${baseUrl}/exams/${id}`, { headers});
-};
 const getUserResults = (userId) => {
     const token = localStorage.getItem('auth_token');
     const headers = {
@@ -85,4 +85,4 @@ const getUserResults = (userId) => {
     return axios.get(`${baseUrl}/results/user/${userId}`, { headers });
 };
 
-export { getAllExams, addExam, addQuestions, getExamById,getUserResults };
+export { getAllExams, addExam, addQuestions, getExamById ,getExamByID,getUserResults };

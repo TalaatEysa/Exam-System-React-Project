@@ -41,7 +41,7 @@ console.log("exam data is: " , examData);
 
     return (
         <div className="exam-container">
-            <h1>{examData.name}</h1>
+            <h1>Name: {examData.name}</h1>
             <p><strong>Description:</strong> {examData.description}</p>
             <p><strong>Duration:</strong> {examData.duration} minutes</p>
             <p><strong>Created by:</strong> {examData.created_by}</p>

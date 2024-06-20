@@ -16,6 +16,7 @@ import AddExam from './components/exams/AddExam';
 import { UserExams } from './components/user/UserExams';
 import { TakeExam } from './components/user/TakeExam';
 import { UserResults } from './components/user/UserResults';
+import AddQuestions from './components/Questions/AddQuestions';
 
 
 function App() {
