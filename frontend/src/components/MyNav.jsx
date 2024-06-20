@@ -42,22 +42,6 @@ export function MyNav() {
               >
                 Results
               </NavLink>
-              <NavLink
-                className={({ isActive }) =>
-                  isActive ? 'text-primary nav-link' : 'nav-link'
-                }
-                to="/user"
-              >
-                User
-              </NavLink>
-              <NavLink
-                className={({ isActive }) =>
-                  isActive ? 'text-success nav-link' : 'nav-link'
-                }
-                to="/admin"
-              >
-                Admin
-              </NavLink>
               <Nav.Link className="nav-link" onClick={handleLogout}>
                 Logout
               </Nav.Link>

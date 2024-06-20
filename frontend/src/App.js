@@ -7,8 +7,6 @@ import {
   createRoutesFromElements,
 } from 'react-router-dom';
 import { LoginComponent } from './components/LoginComponent';
-import { User } from './User';
-import { Admin } from './Admin';
 import { SharedLayouts } from './layouts/SharedLayouts';
 import Exams from './components/exams/Exams';
 import Exam from './components/exams/Exam';
@@ -29,8 +27,6 @@ function App() {
         <Route path="/" element={<SharedLayouts />}>
           <Route index element={<LoginComponent />} />
           <Route path="login" element={<LoginComponent />} />
-          <Route path="user" element={<User />} />
-          <Route path="admin" element={<Admin />} />
           <Route path="exams" element={<Exams />} />
           <Route path="exams/:id" element={<Exam />} />
           <Route path="addExam" element={<AddExam />} />
