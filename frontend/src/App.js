@@ -14,6 +14,7 @@ import Exams from './components/exams/Exams';
 import Exam from './components/exams/Exam';
 import AddExam from './components/exams/AddExam';
 import StudentRegistration from './components/user/StudentRegistration';
+import AddQuestions from './components/Questions/AddQuestions';
 
 function App() {
   // const isLoggedIn = localStorage.getItem('auth_token');
@@ -30,6 +31,7 @@ function App() {
           <Route path="exams" element={<Exams />} />
           <Route path="exams/:id" element={<Exam />} />
           <Route path="addExam" element={<AddExam />} />
+          <Route path="/exams/:examId/addQuestions" element={<AddQuestions/>}/>
           <Route path="register" element={<StudentRegistration />} />
           
         </Route>
