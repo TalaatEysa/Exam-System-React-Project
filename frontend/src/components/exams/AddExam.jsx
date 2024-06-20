@@ -7,7 +7,6 @@ export default function AddExam() {
   const [exam, setExam] = useState({
     exam_name: '',
     description: '',
-    created_by: '',
     duration: ''
   });
 
@@ -21,14 +20,19 @@ export default function AddExam() {
 
     try {
       const token = localStorage.getItem('auth_token');
+      const userId = localStorage.getItem('id'); // Retrieve the user ID from localStorage
+
       const headers = {
         'Authorization': `Bearer ${token}`,
         'Content-Type': 'application/json'
       };
 
-      console.log('Submitting exam:', exam);
+      // Include the user ID in the exam data
+      const examData = { ...exam, created_by: userId };
 
-      const response = await axios.post(`${baseUrl}/exams/`, exam, { headers });
+      console.log('Submitting exam:', examData);
+
+      const response = await axios.post(`${baseUrl}/exams/`, examData, { headers });
       console.log('Exam created successfully:', response.data);
 
       alert('Exam added successfully!');
@@ -39,6 +43,8 @@ export default function AddExam() {
   };
 
   return (
+    <>
+    
     <div className="add-exam-container">
       <h1>Add Exam</h1>
       <form className="exam-form" onSubmit={handleSubmit}>
@@ -65,18 +71,6 @@ export default function AddExam() {
           />
         </div>
         <div className="form-group">
-          <label htmlFor="created_by">Created By (User ID)</label>
-          <input
-            type="number"
-            id="created_by"
-            name="created_by"
-            value={exam.created_by}
-            onChange={handleInputChange}
-            placeholder="Enter your user ID"
-            required
-          />
-        </div>
-        <div className="form-group">
           <label htmlFor="duration">Duration (minutes)</label>
           <input
             type="number"
@@ -91,5 +85,6 @@ export default function AddExam() {
         <button type="submit" className="submit-button">Submit</button>
       </form>
     </div>
+    </>
   );
 }
