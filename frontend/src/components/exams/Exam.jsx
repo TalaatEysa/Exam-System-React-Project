@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { getExamByID } from '../../api/axios';
+import { getExamByID, deleteQuestionById } from '../../api/axios';
 import { Link, useParams } from 'react-router-dom';
 import '../../css/Exam.css';
+import Swal from 'sweetalert2';
 
 export default function Exam() {
     const { id: examId } = useParams(); // Match this with your route parameter
@@ -26,7 +27,40 @@ export default function Exam() {
 
         fetchExam();
     }, [examId]);
-    console.log("exam data is: ", examData);
+    
+
+    const deleteQuestion = async (questionId) => {
+        const result = await Swal.fire({
+            title: 'Are you sure?',
+            text: "Do you really want to delete this question? This action cannot be undone.",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, delete it!',
+            cancelButtonText: 'No, keep it'
+        });
+
+        if (result.isConfirmed) {
+            try {
+                await deleteQuestionById(questionId);
+                setExamData((prevData) => ({
+                    ...prevData,
+                    questions: prevData.questions.filter((question) => question.id !== questionId)
+                }));
+                Swal.fire(
+                    'Deleted!',
+                    'The question has been deleted.',
+                    'success'
+                );
+            } catch (err) {
+                Swal.fire(
+                    'Error!',
+                    'Failed to delete the question. Please try again.',
+                    'error'
+                );
+            }
+        }
+    };
+
     if (loading) {
         return <div>Loading...</div>;
     }
@@ -69,7 +103,7 @@ export default function Exam() {
                         >
                             Update
                         </Link>
-                        <button className='btn btn-danger mx-1'>Delete</button>    
+                        <button className='btn btn-danger mx-1' onClick={() => deleteQuestion(question.id)}>Delete</button>    
                     </div>
 
                 ))
