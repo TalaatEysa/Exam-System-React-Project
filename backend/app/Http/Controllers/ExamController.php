@@ -78,9 +78,24 @@ class ExamController extends Controller
      * Remove the specified resource from storage.
      */
     public function destroy(string $id)
-    {
-        //$exam = Exam::findOrFail($id);
-        Exam::destroy($id);
-        return "Exam deleted sussefully";
+{
+    try {
+        $exam = Exam::findOrFail($id);
+
+        // Delete related questions
+        $exam->questions()->delete();
+
+        // Delete related results
+        $exam->results()->delete();
+
+        // Finally delete the exam
+        $exam->delete();
+
+        return response()->json(['message' => 'Exam deleted successfully']);
+    } catch (Exception $e) {
+        return response()->json(['error' => $e->getMessage()], 500);
     }
+}
+
+
 }

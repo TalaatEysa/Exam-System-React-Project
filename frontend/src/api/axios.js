@@ -79,6 +79,18 @@ const addQuestions = async (questionData) => {
 };
 
 
+const delteExamById = (id) => {
+    const token = localStorage.getItem('auth_token'); // Adjust according to how you store the token
+
+    // Create headers object
+    const headers = {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json'
+    };
+    return axios.delete(`${baseUrl}/exams/${id}`, { headers});
+};
+
+
 const getUserResults = (userId) => {
     const token = localStorage.getItem('auth_token');
     const headers = {
