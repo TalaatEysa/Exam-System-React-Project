@@ -48,9 +48,11 @@ console.log("exam data is: " , examData);
             <p><strong>Created by:</strong> {examData.created_by}</p>
 
             <h2>Questions</h2>
+            
             {examData.questions && examData.questions.length > 0 ? (
                 examData.questions.map((question) => (
                     <div key={question.id} className="question">
+                        
                         <h3>{question.question_text}</h3>
                         <ul>
                             {question.options.map((option) => (
@@ -59,6 +61,7 @@ console.log("exam data is: " , examData);
                                 </li>
                             ))}
                         </ul>
+                        <button className='btn btn-warning'>Update</button>
                     </div>
                 ))
             ) : (

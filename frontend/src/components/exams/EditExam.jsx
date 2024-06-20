@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom'; // Assuming you use React Router for navigation
+import { useNavigate, useParams } from 'react-router-dom'; // Assuming you use React Router for navigation
 import { getExamByID, updateExam } from '../../api/axios';
 
 export default function EditExam() {
     const { examId } = useParams(); // Get examId from URL params
+    const navigate = useNavigate();
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [exam, setExam] = useState(null);
@@ -49,6 +50,7 @@ export default function EditExam() {
             await updateExam( formData ,examId);
             // Optionally, show a success message or navigate to a different page
             console.log('Exam updated successfully');
+            navigate(`/exams/${examId}`);
         } catch (error) {
             setError('Failed to update the exam. Please try again.');
         }
