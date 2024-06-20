@@ -13,7 +13,9 @@ import { SharedLayouts } from './layouts/SharedLayouts';
 import Exams from './components/exams/Exams';
 import Exam from './components/exams/Exam';
 import AddExam from './components/exams/AddExam';
-import AddQuestions from './components/Questions/AddQuestions';
+import { UserExams } from './components/user/UserExams';
+import { TakeExam } from './components/user/TakeExam';
+import { UserResults } from './components/user/UserResults';
 
 
 function App() {
@@ -35,6 +37,11 @@ function App() {
 
 
           
+
+          <Route path="userexams" element={<UserExams />} />
+          <Route path="userexams/:id" element={<TakeExam />} />
+          <Route path="userresults" element={<UserResults />} />
+
         </Route>
         {/* <Route
           path="/user"
