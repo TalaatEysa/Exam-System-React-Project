@@ -1,0 +1,70 @@
+/* StudentRegistration.css */
+
+.student-registration {
+  width: 400px;
+  margin: 20px auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.student-registration h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.student-registration form {
+  display: flex;
+  flex-direction: column;
+}
+
+.student-registration form div {
+  margin-bottom: 10px;
+}
+
+.student-registration label {
+  font-weight: bold;
+}
+
+.student-registration input[type="text"],
+.student-registration input[type="email"],
+.student-registration input[type="password"] {
+  width: 100%;
+  padding: 8px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+.student-registration button[type="submit"] {
+  width: 100%;
+  padding: 10px;
+  font-size: 18px;
+  color: #fff;
+  background-color: #1572d6;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.student-registration button[type="submit"]:hover {
+  background-color: #45a049;
+}
+
+.success-message {
+  margin-top: 20px;
+  padding: 10px;
+  background-color: #dff0d8;
+  border: 1px solid #3c763d;
+  border-radius: 3px;
+  color: #3c763d;
+}
+
+.error-message {
+  color: red;
+  font-size: 14px;
+}

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from '../api/axios'; // Assuming this is your custom axios instance
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { Form, Button, Container, Row, Col } from 'react-bootstrap';
 
 export function LoginComponent() {
@@ -23,8 +23,6 @@ export function LoginComponent() {
       localStorage.setItem('auth_token', response.data.access_token);
       localStorage.setItem('user_name', userName);
       localStorage.setItem('user_type', response.data.user_type);
-      localStorage.setItem('id',response.data.id)
-      
 
       // Redirect based on user role
       if (response.data.user_type === 'User') {
@@ -69,6 +67,10 @@ export function LoginComponent() {
               Login
             </Button>
           </Form>
+          <p className="mt-3">
+            Don't have an account?{' '}
+            <Link to="/register">Register Now</Link>
+          </p>
         </Col>
       </Row>
     </Container>
