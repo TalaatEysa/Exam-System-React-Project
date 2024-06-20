@@ -22,7 +22,7 @@ export function LoginComponent() {
       if (userType === 'User') {
         navigate('/userexams');
       } else if (userType === 'Admin') {
-        navigate('/exams');
+        navigate('/admin/exams');
       }
     }
   };
