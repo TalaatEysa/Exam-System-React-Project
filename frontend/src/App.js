@@ -32,14 +32,8 @@ function App() {
         <Route path="/" element={<SharedLayouts />}>
           <Route index element={<LoginComponent />} />
           <Route path="login" element={<LoginComponent />} />
-          <Route path="exams" element={<Exams />} />
-          <Route path="exams/:id" element={<Exam />} />
-          <Route path="addExam" element={<AddExam />} />
-          <Route path='/exams/editExam/:examId' element={<EditExam/>}/>
-          <Route path="/exams/:examId/addQuestions" element={<AddQuestions/>}/>
-          <Route path="/exams/:examId/editQuestion/:id" element={<EditQuestion/>}/>
+
           <Route path="register" element={<StudentRegistration />} />
-          <Route path="admin/results" element={<AdminResults />} />
 
           {/* <Route path="userexams" element={<UserExams />} /> */}
           {/* <Route path="userexams/:id" element={<TakeExam />} /> */}
@@ -56,6 +50,15 @@ function App() {
             path="userresults"
             element={<ProtectedRoute element={UserResults} allowedRoles={['User']} />}
           />
+        </Route>
+        <Route path="/admin" element={<ProtectedRoute element={SharedLayouts} allowedRoles={['Admin']} />}>
+          <Route path="exams" element={<Exams />} />
+          <Route path="exams/:id" element={<Exam />} />
+          <Route path="addExam" element={<AddExam />} />
+          <Route path='exams/editExam/:examId' element={<EditExam />} />
+          <Route path="exams/:examId/addQuestions" element={<AddQuestions />} />
+          <Route path="exams/:examId/editQuestion/:id" element={<EditQuestion />} />
+          <Route path="results" element={<AdminResults />} />
         </Route>
         <Route path="*" element={<NotFound />} />
 
