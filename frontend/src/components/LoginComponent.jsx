@@ -27,9 +27,9 @@ export function LoginComponent() {
 
       // Redirect based on user role
       if (response.data.user_type === 'User') {
-        navigate('/user');
+        navigate('/userexams');
       } else if (response.data.user_type === 'Admin') {
-        navigate('/admin');
+        navigate('/exams');
       }
     } catch (err) {
       setError('Login failed. Please check your credentials and try again.');
