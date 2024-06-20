@@ -44,7 +44,7 @@ class AuthController extends Controller
         throw ValidationException::withMessages([
             'user_name' => ['The provided credentials are incorrect.'],
         ]);
-    }
+     }
 
         $user = Auth::user();
         $token = $user->createToken('auth_token')->plainTextToken;
@@ -52,7 +52,7 @@ class AuthController extends Controller
         return response()->json([
             'access_token' => $token,
             'token_type' => 'Bearer',
-            'user_type' => $user->user_type,
+            'user_type' => $user->user_type, // Assuming 'user_type' is a field in your users table
             'id' => $user->id
         ]);
     }
