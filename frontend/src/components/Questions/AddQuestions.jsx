@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
-import {addQuestions} from '../../api/axios'; // Adjust the import path
+import { addQuestions } from '../../api/axios'; // Adjust the import path
+import Swal from 'sweetalert2';
 import '../../css/AddQuestions.css';
 
 const AddQuestions = () => {
@@ -10,7 +11,7 @@ const AddQuestions = () => {
     { option_text: '', is_correct: false },
     { option_text: '', is_correct: false }
   ]);
-console.log("exam id is",examId);
+
   const handleOptionChange = (index, field, value) => {
     const newOptions = [...options];
     newOptions[index][field] = value;
@@ -33,8 +34,22 @@ console.log("exam id is",examId);
     try {
       const response = await addQuestions(questionData);
       console.log('Question added successfully', response);
+
+      // Show success alert
+      Swal.fire({
+        icon: 'success',
+        title: 'Question Added',
+        text: 'The question has been added successfully!',
+      });
     } catch (error) {
       console.error('Error adding question', error);
+
+      // Show error alert
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'There was an error adding the question. Please try again.',
+      });
     }
   };
 
