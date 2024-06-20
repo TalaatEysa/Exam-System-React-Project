@@ -1,6 +1,6 @@
 import React from 'react';
 import { Container, Nav, Navbar } from 'react-bootstrap';
-import { NavLink,useNavigate  } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 
 export function MyNav() {
   const navigate = useNavigate();
@@ -10,6 +10,7 @@ export function MyNav() {
     localStorage.removeItem('auth_token');
     localStorage.removeItem('user_name');
     localStorage.removeItem('user_type');
+    localStorage.removeItem('user_id');
 
     // Redirect to login page
     navigate('/login');
@@ -23,15 +24,22 @@ export function MyNav() {
       <Container>
         <h3>Exam System</h3>
         <Nav className="ms-auto">
-          {/* <NavLink
+          <NavLink
             className={({ isActive }) =>
               isActive ? 'text-success nav-link' : 'nav-link'
             }
-            to="/"
-            exact
+            to="/userexams"
           >
-            Home
-          </NavLink> */}
+            Exams
+          </NavLink>
+          <NavLink
+            className={({ isActive }) =>
+              isActive ? 'text-success nav-link' : 'nav-link'
+            }
+            to="/userresults"
+          >
+            Results
+          </NavLink>
           <NavLink
             className={({ isActive }) =>
               isActive ? 'text-success nav-link' : 'nav-link'

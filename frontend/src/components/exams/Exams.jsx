@@ -41,8 +41,8 @@ export default function Exams() {
                     <div className="col-md-4 mb-4" key={exam.id}>
                         <div className="card">
                             <div className="card-body">
-                                <h5 className="card-title">{exam.title}</h5>
-                                <p className="card-text">{exam.description}</p>
+                                <h5 className="card-title">Name: {exam.name}</h5>
+                                <p className="card-text">Description: {exam.description}</p>
                                 <Link to={`/exams/${exam.id}`} className='btn btn-primary'>View</Link>
                             </div>
                         </div>
