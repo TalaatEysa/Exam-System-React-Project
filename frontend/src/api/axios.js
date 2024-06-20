@@ -147,5 +147,20 @@ const getUserResults = (userId) => {
     return axios.get(`${baseUrl}/results/user/${userId}`, { headers });
 };
 
+const getAllResults = async () => {
+    const token = localStorage.getItem('auth_token');
+    const headers = {
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    };
+    try {
+      const response = await axios.get(`${baseUrl}/results`, { headers });
+      return response.data;
+    } catch (error) {
+      console.error('Error fetching results:', error.response || error.message);
+      throw error;
+    }
+  };
+
 export { getAllExams, addExam, addQuestions, getExamById ,getExamByID,getUserResults 
-    , deleteExamById , updateExam, updateQuestion, deleteQuestionById };
+    , deleteExamById , updateExam, updateQuestion, deleteQuestionById,getAllResults };

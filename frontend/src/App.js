@@ -18,6 +18,7 @@ import { TakeExam } from './components/user/TakeExam';
 import { UserResults } from './components/user/UserResults';
 import EditExam from './components/exams/EditExam';
 import ProtectedRoute from './components/ProtectedRoute';
+import AdminResults from './components/admin/AdminResults';
 import { NotFound } from './components/NotFound';
 import EditQuestion from './components/Questions/EditQuestion';
 
@@ -38,6 +39,8 @@ function App() {
           <Route path="/exams/:examId/addQuestions" element={<AddQuestions/>}/>
           <Route path="/exams/:examId/editQuestion/:id" element={<EditQuestion/>}/>
           <Route path="register" element={<StudentRegistration />} />
+          <Route path="admin/results" element={<AdminResults />} />
+
           {/* <Route path="userexams" element={<UserExams />} /> */}
           {/* <Route path="userexams/:id" element={<TakeExam />} /> */}
           {/* <Route path="userresults" element={<UserResults />} /> */}
