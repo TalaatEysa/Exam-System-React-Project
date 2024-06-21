@@ -51,28 +51,46 @@ export default function Exams() {
     };
 
     return (
-        <div className="container mt-4">
-            <div className='text-center'>
-                <Link to={`/admin/addExam`} className='btn btn-success'>Create Exam</Link>
-            </div>    
-            <h1 className="mb-4">Exams</h1>
-            {loading && <div>Loading...</div>}
-            {error && <div className="alert alert-danger">{error}</div>}
-            <div className="row">
-                {exams.map((exam) => (
-                    <div className="col-md-4 mb-4" key={exam.id}>
-                        <div className="card">
-                            <div className="card-body">
-                                <h5 className="card-title">Name: {exam.name}</h5>
-                                <p className="card-text">Description: {exam.description}</p>
-                                <Link to={`/admin/exams/${exam.id}`} className='btn btn-primary mx-1'>View</Link>
-                                <button onClick={() => handleDelete(exam.id)} className='btn btn-danger mx-1'>Delete</button>
-                                <Link to={`/admin/exams/editExam/${exam.id}`} state={{ exam }} className='btn btn-warning mx-1'>Update</Link>
-                            </div>
-                        </div>
-                    </div>
-                ))}
+      <div className="container mt-2">
+        <h1 className="mb-2 text-center">Exams</h1>
+
+        <Link to={`/admin/addExam`} className="btn btn-success m">
+          Create Exam
+        </Link>
+
+        {loading && <div>Loading...</div>}
+        {error && <div className="alert alert-danger">{error}</div>}
+        <div className="row">
+          {exams.map((exam) => (
+            <div className="col-md-4 mb-4" key={exam.id}>
+              <div className="card">
+                <div className="card-body">
+                  <h5 className="card-title">Name: {exam.name}</h5>
+                  <p className="card-text">Description: {exam.description}</p>
+                  <Link
+                    to={`/admin/exams/${exam.id}`}
+                    className="btn btn-primary mx-1"
+                  >
+                    View
+                  </Link>
+                  <button
+                    onClick={() => handleDelete(exam.id)}
+                    className="btn btn-danger mx-1"
+                  >
+                    Delete
+                  </button>
+                  <Link
+                    to={`/admin/exams/editExam/${exam.id}`}
+                    state={{ exam }}
+                    className="btn btn-warning mx-1"
+                  >
+                    Update
+                  </Link>
+                </div>
+              </div>
             </div>
+          ))}
         </div>
+      </div>
     );
 }

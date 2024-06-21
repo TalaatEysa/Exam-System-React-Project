@@ -82,7 +82,7 @@ const AddQuestions = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="form-container">
+    <form onSubmit={handleSubmit} className="form-container mt-4">
       <div className="form-group">
         <label>Question Text:</label>
         <input
