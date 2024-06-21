@@ -47,19 +47,32 @@ const getExamById = (id) => {
     return axios.get(`${baseUrl}/exams/${id}`, { headers});
 };
 
-const addExam = () => {
-    // Retrieve the token from local storage (or any other secure place)
-    const token = localStorage.getItem('auth_token'); // Adjust according to how you store the token
 
-    // Create headers object
-    const headers = {
-        'Authorization': `Bearer ${token}`,
-        'Content-Type': 'application/json'
-    };
+const addExam = async (examData) => {
+    try {
+        // Retrieve the token from local storage (or any other secure place)
+        const token = localStorage.getItem('auth_token'); // Adjust according to how you store the token
 
-    // Make the API request with headers
-    return axios.get(`${baseUrl}/exams/`, { headers });
-};
+        if (!token) {
+            throw new Error('No auth token found. Please log in.');
+        }
+
+        // Create headers object
+        const headers = {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'
+        };
+
+        // Make the API request with headers
+        const response = await axios.post(`${baseUrl}/exams/`, examData, { headers });
+
+        // Return the response data
+        return response.data;
+    } catch (error) {
+        console.error('Error adding exam:', error);
+        throw error;
+    }
+}
 
 const addQuestions = async (questionData) => {
   const token = localStorage.getItem('auth_token'); // Adjust according to your token storage
