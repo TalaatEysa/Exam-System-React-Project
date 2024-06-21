@@ -3,6 +3,7 @@ import { getAllExams, deleteExamById } from '../../api/axios';
 import { Link } from 'react-router-dom';
 import Swal from 'sweetalert2';
 
+
 export default function Exams() {
     const [exams, setExams] = useState([]);
     const [loading, setLoading] = useState(true);
