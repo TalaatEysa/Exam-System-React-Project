@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, Link } from 'react-router-dom';
@@ -8,12 +7,38 @@ import { login } from '../Store/authSlice';
 export function LoginComponent() {
   const [userName, setUserName] = useState('');
   const [password, setPassword] = useState('');
+  const [userNameError, setUserNameError] = useState('');
+  const [passwordError, setPasswordError] = useState('');
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { user, status, error } = useSelector((state) => state.auth);
 
+  const validateInputs = () => {
+    let valid = true;
+
+    if (userName.trim() === '') {
+      setUserNameError('Username is required.');
+      valid = false;
+    } else {
+      setUserNameError('');
+    }
+
+    if (password.trim() === '') {
+      setPasswordError('Password is required.');
+      valid = false;
+    } else {
+      setPasswordError('');
+    }
+
+    return valid;
+  };
+
   const handleLogin = async (e) => {
     e.preventDefault();
+    if (!validateInputs()) {
+      return;
+    }
+
     const resultAction = await dispatch(
       login({ user_name: userName, password }),
     );
@@ -39,8 +64,9 @@ export function LoginComponent() {
                 type="text"
                 value={userName}
                 onChange={(e) => setUserName(e.target.value)}
-                required
+                
               />
+              {userNameError && <p className="text-danger">*{userNameError}</p>}
             </Form.Group>
 
             <Form.Group controlId="password">
@@ -49,11 +75,12 @@ export function LoginComponent() {
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                required
+                
               />
+              {passwordError && <p className="text-danger">*{passwordError}</p>}
             </Form.Group>
 
-            {status === 'failed' && <p className="error">{error}</p>}
+            {status === 'failed' && <p className="text-danger">*{error}</p>}
 
             <Button
               variant="primary"
