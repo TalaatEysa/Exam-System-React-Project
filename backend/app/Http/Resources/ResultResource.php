@@ -18,6 +18,7 @@ class ResultResource extends JsonResource
             'exam_name' => $this->exam->exam_name,
             'user_name' => $this->user->name,
             'score' => $this->score,
+            'id'=> $this->id,
             'submission_date' => $this->submission_date,
         ];
     }
