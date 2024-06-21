@@ -21,7 +21,7 @@ import ProtectedRoute from './components/ProtectedRoute';
 import AdminResults from './components/admin/AdminResults';
 import { NotFound } from './components/NotFound';
 import EditQuestion from './components/Questions/EditQuestion';
-import { AdminLayout } from './layouts/AdminLayout';
+import { NotAuthorized } from './components/NotAuthorized';
 
 function App() {
   // const isLoggedIn = localStorage.getItem('auth_token');
@@ -33,12 +33,7 @@ function App() {
         <Route path="/" element={<SharedLayouts />}>
           <Route index element={<LoginComponent />} />
           <Route path="login" element={<LoginComponent />} />
-
           <Route path="register" element={<StudentRegistration />} />
-
-          {/* <Route path="userexams" element={<UserExams />} /> */}
-          {/* <Route path="userexams/:id" element={<TakeExam />} /> */}
-          {/* <Route path="userresults" element={<UserResults />} /> */}
           <Route
             path="userexams"
             element={<ProtectedRoute element={UserExams} allowedRoles={['User']} />}
@@ -52,8 +47,8 @@ function App() {
             element={<ProtectedRoute element={UserResults} allowedRoles={['User']} />}
           />
         </Route>
-        <Route path="/admin" element={<ProtectedRoute element={AdminLayout} allowedRoles={['Admin']} />}>
-          <Route path="exams" element={<Exams />} />
+        <Route path="/admin" element={<ProtectedRoute element={SharedLayouts} allowedRoles={['Admin']} />}>
+          <Route path="exams" element={<Exams/>} />
           <Route path="exams/:id" element={<Exam />} />
           <Route path="addExam" element={<AddExam />} />
           <Route path='exams/editExam/:examId' element={<EditExam />} />
@@ -61,37 +56,9 @@ function App() {
           <Route path="exams/:examId/editQuestion/:id" element={<EditQuestion />} />
           <Route path="results" element={<AdminResults />} />
         </Route>
-        <Route path="/404" element={<NotFound />} />
+        <Route path="/not-authorized" element={<NotAuthorized />} />
         <Route path="*" element={<NotFound />} />
 
-        {/* <Route
-          path="/user"
-          element={
-            isLoggedIn ? (
-              user_type === 'User' ? (
-                <User />
-              ) : (
-                <Navigate to="/admin" />
-              )
-            ) : (
-              <Navigate to="/login" />
-            )
-          }
-        />
-        <Route
-          path="/admin"
-          element={
-            isLoggedIn ? (
-              user_type === 'Admin' ? (
-                <Admin />
-              ) : (
-                <Navigate to="/user" />
-              )
-            ) : (
-              <Navigate to="/login" />
-            )
-          }
-        /> */}
       </>
     )
   );
