@@ -45,7 +45,7 @@ export function MyNav() {
               )}
 
               <NavLink
-                className="btn btn-danger rounded rounded-pill ms-3"
+                className="btn btn-danger rounded rounded-pill"
                 onClick={handleLogout}
               >
                 Logout

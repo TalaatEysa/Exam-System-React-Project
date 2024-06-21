@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { getAllExams, deleteExamById } from '../../api/axios';
 import { Link } from 'react-router-dom';
 import Swal from 'sweetalert2';
+import '../../css/Exams.css'
 
 
 export default function Exams() {
@@ -54,7 +55,7 @@ export default function Exams() {
       <div className="container mt-2">
         <h1 className="mb-2 text-center">Exams</h1>
 
-        <Link to={`/admin/addExam`} className="btn btn-success m">
+        <Link to={`/admin/addExam`} className="btn btn-success my-2">
           Create Exam
         </Link>
 
