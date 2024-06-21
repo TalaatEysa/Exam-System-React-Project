@@ -36,7 +36,7 @@ export function UserExams() {
   }, [userId]);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <div className="text-center">Loading...</div>;
   }
 
   if (error) {
@@ -45,17 +45,19 @@ export function UserExams() {
 
   return (
     <div className="container mt-1">
-      <h1 className="mt-4 mb-5">Exams</h1>
+      <h1 className="mt-4 mb-5 text-center">Exams</h1>
       <div className="row">
         {exams.map((exam) => (
           <div className="col-md-4 mb-4" key={exam.id}>
             <div className="card">
               <div className="card-body">
                 <h2 className="card-title text-center">{exam.name}</h2>
-                <p className="card-text">{exam.description}</p>
-                <Link to={`/userexams/${exam.id}`} className="btn btn-primary">
-                  Take Exam
-                </Link>
+                <p className="card-text text-center">{exam.description}</p>
+                <div className='text-center'>
+                  <Link to={`/userexams/${exam.id}`} className="btn btn-primary rounded-5">
+                    Take Exam
+                  </Link>
+                </div>
               </div>
             </div>
           </div>

@@ -74,12 +74,12 @@ export function LoginComponent() {
   };
 
   return (
-    <Container className="login-container">
+    <Container className="login-container mt-5">
       <Row className="justify-content-md-center">
-        <Col xs={8} md={6} className='login-form'>
+        <Col xs={8} md={5} className='login-form'>
           <h1 className='text-center'>Login</h1>
           <Form onSubmit={handleLogin} className='w-75 mx-auto'>
-            <Form.Group controlId="userName">
+            <Form.Group controlId="userName" className='mb-3'>
               <Form.Label>Username</Form.Label>
               <Form.Control
                 type="text"

@@ -3,6 +3,7 @@ import { Container, Nav, Navbar } from 'react-bootstrap';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../Store/authSlice';
+import '../css/MyNav.css';
 
 export function MyNav() {
   const navigate = useNavigate();
@@ -17,7 +18,7 @@ export function MyNav() {
   const isAdmin = user && user.user_type === 'Admin';
 
   return (
-    <Navbar bg="light" data-bs-theme="light">
+    <Navbar className="navbar-bg" data-bs-theme="light">
       <Container>
         <h3>{isAdmin ? 'Admin Dashboard' : 'Exam System'}</h3>{' '}
         <Nav className="ms-auto">
@@ -37,21 +38,30 @@ export function MyNav() {
                   <NavLink className="nav-link" to="/userexams">
                     Exams
                   </NavLink>
-                  <NavLink className="nav-link" to="/userresults">
+                  <NavLink className="nav-link text-dark" to="/userresults">
                     Results
                   </NavLink>
                 </>
               )}
-              <Nav.Link className="nav-link" onClick={handleLogout}>
+              <NavLink
+                className="btn btn-danger rounded rounded-pill ms-5"
+                onClick={handleLogout}
+              >
                 Logout
-              </Nav.Link>
+              </NavLink>
             </>
           ) : (
             <>
-              <NavLink className="nav-link" to="/login">
+              <NavLink
+                className="btn btn-primary rounded rounded-pill"
+                to="/login"
+              >
                 Login
               </NavLink>
-              <NavLink className="nav-link" to="/register">
+              <NavLink
+                className="mx-2 btn btn-success rounded rounded-pill"
+                to="/register"
+              >
                 Register
               </NavLink>
             </>

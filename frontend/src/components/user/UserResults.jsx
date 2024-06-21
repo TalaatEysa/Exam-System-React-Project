@@ -32,7 +32,7 @@ export function UserResults() {
   }, [userId]);
 
   if (loadingResults || loadingExams) {
-    return <div>Loading...</div>;
+    return <div className='text-center'>Loading...</div>;
   }
 
   if (errorResults || errorExams) {
@@ -41,17 +41,19 @@ export function UserResults() {
 
   return (
     <div className="container mt-5">
-      <h1 className="mb-4">Your Exam Results</h1>
+      <h1 className="mb-4 text-center">Your Exam Results</h1>
       <div className="row">
         {results.map((result) => (
           <div className="col-md-4 mb-4" key={result.exam_name}>
             <div className="card">
               <div className="card-body">
-                <h2 className="card-title text-center">
-                  {result.exam_name}
-                </h2>
-                <p className="card-text">
-                  Score: {result.score}/{exams.find((exam) => exam.name === result.exam_name).questions.length}
+                <h2 className="card-title text-center">{result.exam_name}</h2>
+                <p className="card-text my-5 mx-auto text-center bg-primary text-white rounded-4 w-50 p-1">
+                  Score: {result.score}/
+                  {
+                    exams.find((exam) => exam.name === result.exam_name)
+                      .questions.length
+                  }
                 </p>
               </div>
             </div>

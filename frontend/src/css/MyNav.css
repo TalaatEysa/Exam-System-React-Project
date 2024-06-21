@@ -1,0 +1,9 @@
+.navbar-bg{
+    /* background-color: rgb(100, 173, 190); */
+    background-color:lightgray;
+}
+.nav-link:hover{
+    background-color: rgb(183, 141, 164);
+    border-radius: 20px;
+
+}
