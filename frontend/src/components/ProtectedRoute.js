@@ -6,7 +6,7 @@ const ProtectedRoute = ({ element: Component, allowedRoles}) => {
     const { user } = useSelector((state) => state.auth);
 
     if (!user) {
-        return <Navigate to="/login" />;
+        return <Navigate to="/404" />;
     }
     return <Component />;
 };
