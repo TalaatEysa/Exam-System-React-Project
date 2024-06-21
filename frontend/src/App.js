@@ -57,6 +57,7 @@ function App() {
           <Route path="results" element={<AdminResults />} />
         </Route>
         <Route path="/not-authorized" element={<NotAuthorized />} />
+        <Route path="/404" element={<NotFound />} />
         <Route path="*" element={<NotFound />} />
 
       </>
