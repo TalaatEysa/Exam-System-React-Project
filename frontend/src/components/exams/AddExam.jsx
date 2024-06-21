@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import '../../css/AddExam.css'; // Assuming you have a separate CSS file for styling
+import { useNavigate } from 'react-router-dom';
 
 export default function AddExam() {
   const baseUrl = "http://127.0.0.1:8000/api";
+  const navigate = useNavigate();
   const [exam, setExam] = useState({
     exam_name: '',
     description: '',
@@ -55,10 +57,11 @@ export default function AddExam() {
       const response = await axios.post(`${baseUrl}/exams/`, examData, { headers });
       console.log('Exam created successfully:', response.data);
 
-      alert('Exam added successfully!');
+      
       // Reset form and errors
       setExam({ exam_name: '', description: '', duration: '' });
       setErrors({});
+      navigate('/admin/exams');
     } catch (error) {
       console.error('Error adding exam:', error);
       alert('An error occurred while adding the exam.');

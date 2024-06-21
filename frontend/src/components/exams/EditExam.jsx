@@ -66,7 +66,7 @@ export default function EditExam() {
         try {
             await updateExam(formData, examId);
             console.log('Exam updated successfully');
-            navigate(`/exams/${examId}`);
+            navigate(`/admin/exams/${examId}`);
         } catch (error) {
             setError('Failed to update the exam. Please try again.');
         }

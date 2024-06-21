@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { addQuestions } from '../../api/axios'; // Adjust the import path
 import Swal from 'sweetalert2';
 import '../../css/AddQuestions.css';
 
 const AddQuestions = () => {
   const { examId } = useParams(); // Get the examId from the URL
+  const navigate = useNavigate()
   const [questionText, setQuestionText] = useState('');
   const [options, setOptions] = useState([
     { option_text: '', is_correct: false },
@@ -76,6 +77,8 @@ const AddQuestions = () => {
         text: 'There was an error adding the question. Please try again.',
       });
     }
+
+    navigate(`/admin/exams/${examId}`);
   };
 
   return (

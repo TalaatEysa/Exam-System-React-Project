@@ -69,7 +69,7 @@ export default function EditQuestion() {
         }
         try {
             await updateQuestion(formData, questionId);
-            navigate(`/exams/${question.exam_id}`); // Navigate back to the exam page
+            navigate(`/admin/exams/${question.exam_id}`); // Navigate back to the exam page
         } catch (error) {
             console.error('Failed to update the question:', error);
         }
