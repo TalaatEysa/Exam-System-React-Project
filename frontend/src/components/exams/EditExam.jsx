@@ -1,39 +1,28 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate, useParams } from 'react-router-dom'; // Assuming you use React Router for navigation
-import { getExamByID, updateExam } from '../../api/axios';
+import { useNavigate, useParams, useLocation } from 'react-router-dom';
+import { updateExam } from '../../api/axios';
 
 export default function EditExam() {
-    const { examId } = useParams(); // Get examId from URL params
+    const { examId } = useParams();
     const navigate = useNavigate();
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
+    const location = useLocation();
+    const exam = location.state?.exam;
+
     const [formData, setFormData] = useState({
-        exam_name: '',
-        description: '',
-        created_by: '',
-        duration: ''
+        exam_name: exam?.name || '',
+        description: exam?.description || '',
+        created_by: localStorage.getItem('id'),
+        duration: exam?.duration || ''
     });
-    const [validationErrors, setValidationErrors] = useState({}); // State for validation errors
+
+    const [validationErrors, setValidationErrors] = useState({}); 
+    const [error, setError] = useState(null);
 
     useEffect(() => {
-        const fetchExam = async () => {
-            try {
-                const response = await getExamByID(examId);
-                setFormData({
-                    exam_name: response.data.name,
-                    description: response.data.description,
-                    created_by: localStorage.getItem('id'),
-                    duration: response.data.duration
-                });
-            } catch (error) {
-                setError('Failed to fetch exam data. Please try again.');
-            } finally {
-                setLoading(false);
-            }
-        };
-
-        fetchExam();
-    }, [examId]);
+        if (!exam) {
+            setError('No exam data available.');
+        }
+    }, [exam]);
 
     const handleChange = (e) => {
         setFormData({
@@ -72,12 +61,8 @@ export default function EditExam() {
         }
     };
 
-    if (loading) {
-        return <div>Loading...</div>;
-    }
-
-    if (error) {
-        return <div className="alert alert-danger">{error}</div>;
+    if (!exam) {
+        return <div className="alert alert-danger">Failed to load exam data. Please try again.</div>;
     }
 
     return (
