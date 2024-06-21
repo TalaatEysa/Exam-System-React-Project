@@ -43,13 +43,16 @@ export function MyNav() {
                   </NavLink>
                 </>
               )}
+
               <NavLink
-                className="btn btn-danger rounded rounded-pill ms-5"
+                className="btn btn-danger rounded rounded-pill ms-3"
                 onClick={handleLogout}
               >
                 Logout
               </NavLink>
-              
+              <Nav.Item className='pt-2 mx-5'>
+                <h6 className="text-dark">{user.name}</h6>
+              </Nav.Item>
             </>
           ) : (
             <>

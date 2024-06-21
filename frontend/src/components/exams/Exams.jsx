@@ -53,7 +53,7 @@ export default function Exams() {
       <div className="container mt-2">
         <h1 className="mb-2 text-center">Exams</h1>
 
-        <Link to={`/admin/addExam`} className="btn btn-success mb-3">
+        <Link to={`/admin/addExam`} className="btn btn-success m">
           Create Exam
         </Link>
 
