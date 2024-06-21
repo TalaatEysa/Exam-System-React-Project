@@ -10,15 +10,15 @@ export function TakeExam() {
   const [error, setError] = useState(null);
   const [answers, setAnswers] = useState({});
   const [score, setScore] = useState(null);
+   const [timeLeft, setTimeLeft] = useState(null);
   const navigate = useNavigate();
-    
-  
 
   useEffect(() => {
     const fetchExam = async () => {
       try {
         const response = await getExamById(id);
         setExam(response.data.data);
+        setTimeLeft(response.data.data.duration * 60);
       } catch (error) {
         setError(error.message);
       } finally {
@@ -28,6 +28,28 @@ export function TakeExam() {
 
     fetchExam();
   }, [id]);
+   useEffect(() => {
+     if (!timeLeft) return;
+
+     const intervalId = setInterval(() => {
+       setTimeLeft((prevTime) => {
+         if (prevTime <= 1) {
+           clearInterval(intervalId);
+           handleSubmit(); // Automatically submit the exam when time runs out
+           return 0;
+         }
+         return prevTime - 1;
+       });
+     }, 1000);
+
+     return () => clearInterval(intervalId);
+   }, );
+
+   const formatTime = (seconds) => {
+     const minutes = Math.floor(seconds / 60);
+     const secs = seconds % 60;
+     return `${minutes}:${secs < 10 ? '0' : ''}${secs}`;
+   };
 
   const handleOptionChange = (questionId, optionId) => {
     setAnswers({
@@ -51,11 +73,11 @@ export function TakeExam() {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    if (e) e.preventDefault();
     const score = calculateScore();
     setScore(score);
-    console.log('Selected answers:', answers);
-    console.log('Score:', score);
+    // console.log('Selected answers:', answers);
+    // console.log('Score:', score);
 
     // Prepare data to send to backend
     const resultData = {
@@ -72,12 +94,11 @@ export function TakeExam() {
           'Content-Type': 'application/json',
         },
       });
-        alert('Exam submitted successfully!');
-        navigate('/userresults');
-        
+      // alert('Exam submitted successfully!');
+      navigate('/userresults');
     } catch (error) {
       console.error('Error submitting exam result:', error);
-      alert('Failed to submit exam. Please try again.');
+      // alert('Failed to submit exam. Please try again.');
     }
   };
 
@@ -90,7 +111,12 @@ export function TakeExam() {
   }
 
   return (
-    <div className="container mt-5">
+    <div className="container mt-2">
+      <div className="d-flex justify-content-center mb-4">
+        <div className="text-center btn btn-danger rounded rounded-5 px-3">
+          Time Left: {formatTime(timeLeft)}
+        </div>
+      </div>
       <h1 className="mb-4">{exam.name}</h1>
       <form onSubmit={handleSubmit}>
         {exam.questions.map((question) => (
@@ -121,13 +147,6 @@ export function TakeExam() {
           Submit
         </button>
       </form>
-      {score !== null && (
-        <div className="mt-4">
-          <h3>
-            Your score: {score} / {exam.questions.length}
-          </h3>
-        </div>
-      )}
     </div>
   );
 }
