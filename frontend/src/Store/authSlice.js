@@ -9,6 +9,7 @@ export const login = createAsyncThunk('auth/login', async (credentials, { reject
         localStorage.setItem('user_name', credentials.user_name);
         localStorage.setItem('user_type', response.data.user_type);
         localStorage.setItem('id', response.data.id);
+        localStorage.setItem('name', response.data.name);
         return response.data;
     } catch (err) {
         return rejectWithValue(err.response.data);
