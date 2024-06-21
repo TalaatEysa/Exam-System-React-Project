@@ -14,19 +14,34 @@ export function MyNav() {
     navigate('/login');
   };
 
+  const isAdmin = user && user.user_type === 'Admin';
+
   return (
     <Navbar bg="light" data-bs-theme="light">
       <Container>
-        <h3>Exam System</h3>
+        <h3>{isAdmin ? 'Admin Dashboard' : 'Exam System'}</h3>{' '}
         <Nav className="ms-auto">
           {user ? (
             <>
-              <NavLink className="nav-link" to="/userexams">
-                Exams
-              </NavLink>
-              <NavLink className="nav-link" to="/userresults">
-                Results
-              </NavLink>
+              {isAdmin ? (
+                <>
+                  <NavLink className="nav-link" to="/admin/exams">
+                    Exams
+                  </NavLink>
+                  <NavLink className="nav-link" to="/admin/results">
+                    Results
+                  </NavLink>
+                </>
+              ) : (
+                <>
+                  <NavLink className="nav-link" to="/userexams">
+                    Exams
+                  </NavLink>
+                  <NavLink className="nav-link" to="/userresults">
+                    Results
+                  </NavLink>
+                </>
+              )}
               <Nav.Link className="nav-link" onClick={handleLogout}>
                 Logout
               </Nav.Link>
