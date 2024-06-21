@@ -6,7 +6,11 @@ const ProtectedRoute = ({ element: Component, allowedRoles}) => {
     const { user } = useSelector((state) => state.auth);
 
     if (!user) {
-        return <Navigate to="/404" />;
+        return <Navigate to="/login" />;
+    }
+    if (allowedRoles && !allowedRoles.includes(user.user_type)) {
+        // If user does not have the required role, redirect to unauthorized page
+        return <Navigate to="/not-authorized" />;
     }
     return <Component />;
 };
