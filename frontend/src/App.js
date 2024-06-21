@@ -21,6 +21,7 @@ import ProtectedRoute from './components/ProtectedRoute';
 import AdminResults from './components/admin/AdminResults';
 import { NotFound } from './components/NotFound';
 import EditQuestion from './components/Questions/EditQuestion';
+import { AdminLayout } from './layouts/AdminLayout';
 
 function App() {
   // const isLoggedIn = localStorage.getItem('auth_token');
@@ -51,7 +52,7 @@ function App() {
             element={<ProtectedRoute element={UserResults} allowedRoles={['User']} />}
           />
         </Route>
-        <Route path="/admin" element={<ProtectedRoute element={SharedLayouts} allowedRoles={['Admin']} />}>
+        <Route path="/admin" element={<ProtectedRoute element={AdminLayout} allowedRoles={['Admin']} />}>
           <Route path="exams" element={<Exams />} />
           <Route path="exams/:id" element={<Exam />} />
           <Route path="addExam" element={<AddExam />} />
@@ -60,6 +61,7 @@ function App() {
           <Route path="exams/:examId/editQuestion/:id" element={<EditQuestion />} />
           <Route path="results" element={<AdminResults />} />
         </Route>
+        <Route path="/404" element={<NotFound />} />
         <Route path="*" element={<NotFound />} />
 
         {/* <Route
