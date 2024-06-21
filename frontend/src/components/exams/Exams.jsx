@@ -62,7 +62,8 @@ export default function Exams() {
   return (
     <>
     <div className="container mt-4">
-            <Link to={`/admin/addExam`} className='btn btn-success'>Create Exam</Link>      
+            <div className='text-center'>
+                <Link to={`/admin/addExam`} className='btn btn-success'>Create Exam</Link>  </div>    
             <h1 className="mb-4">Exams</h1>
             {loading && <div>Loading...</div>} {/* Display loading message */}
             {error && <div className="alert alert-danger">{error}</div>} {/* Display error message */}

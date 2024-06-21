@@ -75,7 +75,9 @@ export default function Exam() {
 
     return (
         <div className="exam-container">
-            <Link to={`addQuestions`} className='btn btn-success'>Add Questions</Link>
+            <div className='text-center'>
+                <Link to={`addQuestions`} className='btn btn-success my-1'>Add Questions</Link>
+            </div>
             <h1>Name: {examData.name}</h1>
             <p><strong>Description:</strong> {examData.description}</p>
             <p><strong>Duration:</strong> {examData.duration} minutes</p>
