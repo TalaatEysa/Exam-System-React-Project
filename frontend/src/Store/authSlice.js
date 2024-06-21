@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from '../api/axios';
 
+// Async thunk for login action
 export const login = createAsyncThunk('auth/login', async (credentials, { rejectWithValue }) => {
     try {
         const response = await axios.post('/login', credentials);
@@ -14,6 +15,7 @@ export const login = createAsyncThunk('auth/login', async (credentials, { reject
     }
 });
 
+// Auth slice definition
 const authSlice = createSlice({
     name: 'auth',
     initialState: {
@@ -34,17 +36,20 @@ const authSlice = createSlice({
         builder
             .addCase(login.pending, (state) => {
                 state.status = 'loading';
+                state.error = null; // Reset error on pending
             })
             .addCase(login.fulfilled, (state, action) => {
                 state.status = 'succeeded';
                 state.user = action.payload;
+                state.error = null; // Reset error on success
             })
             .addCase(login.rejected, (state, action) => {
                 state.status = 'failed';
-                state.error = action.payload.message;
+                state.error = action.payload.message; // Set specific error message
             });
     },
 });
 
+// Export actions and reducer
 export const { logout } = authSlice.actions;
 export default authSlice.reducer;
