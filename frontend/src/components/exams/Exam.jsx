@@ -88,10 +88,10 @@ export default function Exam() {
                 examData.questions.map((question, index) => (
                     <div key={question.id} className="question">
                         <h3>{index + 1}. {question.question_text}</h3>
-                        <ol>
+                        <ol type="1">
                             {question.options.map((option, optionIndex) => (
                                 <li key={option.id} className={option.is_correct ? 'correct-option' : ''}>
-                                    {String.fromCharCode(65 + optionIndex)}. {option.option_text} {option.is_correct ? '(Correct)' : ''}
+                                    {option.option_text} {option.is_correct ? '(Correct)' : ''}
                                 </li>
                             ))}
                         </ol>
