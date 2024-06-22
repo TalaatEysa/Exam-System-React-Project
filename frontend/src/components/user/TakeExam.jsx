@@ -3,6 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { getExamById } from '../../api/axios';
 import axios from '../../api/axios';
 
+
 export function TakeExam() {
   const { id } = useParams();
   const [exam, setExam] = useState(null);

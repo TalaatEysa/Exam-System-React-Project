@@ -27,7 +27,6 @@ export default function Exam() {
 
         fetchExam();
     }, [examId]);
-    
 
     const deleteQuestion = async (questionId) => {
         const result = await Swal.fire({
@@ -78,26 +77,24 @@ export default function Exam() {
             <div className='text-center'>
                 <Link to={`addQuestions`} className='btn btn-success my-1'>Add Questions</Link>
             </div>
-            <h1>Name: {examData.name}</h1>
+            <h2 className="text-center">Name: {examData.name}</h2>
             <p><strong>Description:</strong> {examData.description}</p>
             <p><strong>Duration:</strong> {examData.duration} minutes</p>
             <p><strong>Created by:</strong> {examData.created_by}</p>
 
-            <h2>Questions</h2>
+            <h2 className="text-center">Questions</h2>
 
             {examData.questions && examData.questions.length > 0 ? (
-                examData.questions.map((question) => (
-
+                examData.questions.map((question, index) => (
                     <div key={question.id} className="question">
-
-                        <h3>{question.question_text}</h3>
-                        <ul>
-                            {question.options.map((option) => (
+                        <h3>{index + 1}. {question.question_text}</h3>
+                        <ol>
+                            {question.options.map((option, optionIndex) => (
                                 <li key={option.id} className={option.is_correct ? 'correct-option' : ''}>
-                                    {option.option_text} {option.is_correct ? '(Correct)' : ''}
+                                    {String.fromCharCode(65 + optionIndex)}. {option.option_text} {option.is_correct ? '(Correct)' : ''}
                                 </li>
                             ))}
-                        </ul>
+                        </ol>
                         <Link
                             to={`editQuestion/${question.id}`}
                             state={{ question }}  // Correct way to pass the state
@@ -105,9 +102,8 @@ export default function Exam() {
                         >
                             Update
                         </Link>
-                        <button className='btn btn-danger mx-1' onClick={() => deleteQuestion(question.id)}>Delete</button>    
+                        <button className='btn btn-danger mx-1' onClick={() => deleteQuestion(question.id)}>Delete</button>
                     </div>
-
                 ))
             ) : (
                 <p>No questions available for this exam.</p>

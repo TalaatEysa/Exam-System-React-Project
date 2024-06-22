@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation, useParams, useNavigate } from 'react-router-dom';
 import { updateQuestion } from '../../api/axios';
+import '../../css/EditQuestion.css';
+
 
 export default function EditQuestion() {
     const location = useLocation();
@@ -80,8 +82,9 @@ export default function EditQuestion() {
     }
 
     return (
+        <div className='all'>
         <div className="container mt-4">
-            <h1>Edit Question</h1>
+            <h2 className='head'>Edit Question</h2>
             <form onSubmit={handleSubmit}>
                 <div className="form-group">
                     <label htmlFor="question_text">Question Text</label>
@@ -120,8 +123,9 @@ export default function EditQuestion() {
                     </div>
                 ))}
                 {validationErrors.correctOption && <span className="text-danger">{validationErrors.correctOption}</span>}
-                <button type="submit" className="btn btn-primary">Save Changes</button>
+                <button type="submit" className="custom-save-btn">Save Changes</button>
             </form>
+        </div>
         </div>
     );
 }
