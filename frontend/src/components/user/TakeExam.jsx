@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { getExamById } from '../../api/axios';
 import axios from '../../api/axios';
-
+import '../../css/TakeExam.css';
 export function TakeExam() {
   const { id } = useParams();
   const [exam, setExam] = useState(null);
@@ -112,40 +112,49 @@ export function TakeExam() {
 
   return (
     <div className="container mt-2">
-      <div className="d-flex justify-content-center mb-4">
+      <div className="d-flex justify-content-center mb-2">
         <div className="text-center btn btn-danger rounded rounded-5 px-3">
           Time Left: {formatTime(timeLeft)}
         </div>
       </div>
-      <h1 className="mb-4">{exam.name}</h1>
-      <form onSubmit={handleSubmit}>
-        {exam.questions.map((question) => (
-          <div key={question.id} className="mb-4">
-            <h4>{question.question_text}</h4>
-            {question.options.map((option) => (
-              <div key={option.id} className="form-check">
-                <input
-                  className="form-check-input"
-                  type="radio"
-                  name={`question-${question.id}`}
-                  id={`option-${option.id}`}
-                  value={option.id}
-                  onChange={() => handleOptionChange(question.id, option.id)}
-                  checked={answers[question.id] === option.id}
-                />
-                <label
-                  className="form-check-label"
-                  htmlFor={`option-${option.id}`}
-                >
-                  {option.option_text}
-                </label>
+      <h1 className="mb-4 text-center">{exam.name}</h1>
+      <form onSubmit={handleSubmit} className="mx-5">
+        {exam.questions.map((question, index) => (
+          <div key={question.id} className="mb-4 question-container mx-5">
+            <h4>Question {index + 1}:</h4>
+            <h5>{question.question_text}</h5>
+            {question.options.map((option, optionIndex) => (
+              <div
+                key={option.id}
+                className="form-check d-flex align-items-center"
+              >
+                <span className="option-index">{optionIndex + 1}.</span>
+                <div className="d-flex align-items-center ml-2">
+                  <input
+                    className="form-check-input"
+                    type="radio"
+                    name={`question-${question.id}`}
+                    id={`option-${option.id}`}
+                    value={option.id}
+                    onChange={() => handleOptionChange(question.id, option.id)}
+                    checked={answers[question.id] === option.id}
+                  />
+                  <label
+                    className="form-check-label ml-2"
+                    htmlFor={`option-${option.id}`}
+                  >
+                    {option.option_text}
+                  </label>
+                </div>
               </div>
             ))}
           </div>
         ))}
-        <button type="submit" className="btn btn-primary">
-          Submit
-        </button>
+        <div className="d-flex justify-content-center mb-3">
+          <button type="submit" className="btn btn-primary">
+            Submit
+          </button>
+        </div>
       </form>
     </div>
   );

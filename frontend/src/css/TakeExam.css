@@ -1,0 +1,43 @@
+.question-container {
+  /* background-color: #d1cbcb; */
+  /* background-color: #b9b3b3; */
+  background-color:lightgray;
+
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+
+.question-container h4 {
+  color: #333;
+}
+
+.question-container h5 {
+  color: #555;
+}
+
+.form-check-input {
+  margin-right: 10px;
+}
+
+.form-check-label {
+  margin-left: 5px;
+}
+.option-index {
+  margin-right: 30px; /* Adjust this value as needed */
+}
+
+.form-check {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px; /* Adjust spacing between options */
+}
+
+.form-check-input {
+  margin-right: 8px; /* Adjust spacing between input and label */
+}
+
+.ml-2 {
+  margin-left: 8px; /* Adjust spacing for label */
+}
