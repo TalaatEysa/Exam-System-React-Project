@@ -5,7 +5,7 @@ import '../../css/Exam.css';
 import Swal from 'sweetalert2';
 
 export default function Exam() {
-    const { id: examId } = useParams(); // Match this with your route parameter
+    const { id: examId } = useParams(); 
     console.log("id: ", examId);
     const [examData, setExamData] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -97,7 +97,7 @@ export default function Exam() {
                         </ol>
                         <Link
                             to={`editQuestion/${question.id}`}
-                            state={{ question }}  // Correct way to pass the state
+                            state={{ question }} 
                             className='btn btn-warning mx-1'
                         >
                             Update

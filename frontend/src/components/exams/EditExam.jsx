@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate, useParams } from 'react-router-dom'; // Assuming you use React Router for navigation
+import { useNavigate, useParams } from 'react-router-dom'; 
 import { getExamByID, updateExam } from '../../api/axios';
-import '../../css/EditExam.css'; // Assuming you have a separate CSS file for styling
+import '../../css/EditExam.css'; 
 
 
 export default function EditExam() {
-    const { examId } = useParams(); // Get examId from URL params
+    const { examId } = useParams(); 
     const navigate = useNavigate();
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -15,7 +15,7 @@ export default function EditExam() {
         created_by: '',
         duration: ''
     });
-    const [validationErrors, setValidationErrors] = useState({}); // State for validation errors
+    const [validationErrors, setValidationErrors] = useState({}); 
 
     useEffect(() => {
         const fetchExam = async () => {

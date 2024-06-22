@@ -1,17 +1,17 @@
 import React, { useState } from 'react';
-import axios from 'axios';
-import '../../css/AddExam.css'; // Assuming you have a separate CSS file for styling
+import '../../css/AddExam.css'; 
 import { useNavigate } from 'react-router-dom';
+import { addExam } from '../../api/axios.js';
 
 export default function AddExam() {
-  const baseUrl = "http://127.0.0.1:8000/api";
+
   const navigate = useNavigate();
   const [exam, setExam] = useState({
     exam_name: '',
     description: '',
     duration: ''
   });
-  const [errors, setErrors] = useState({}); // State for error messages
+  const [errors, setErrors] = useState({});
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -41,24 +41,16 @@ export default function AddExam() {
     }
 
     try {
-      const token = localStorage.getItem('auth_token');
-      const userId = localStorage.getItem('id'); // Retrieve the user ID from localStorage
+      const userId = localStorage.getItem('id'); 
 
-      const headers = {
-        'Authorization': `Bearer ${token}`,
-        'Content-Type': 'application/json'
-      };
-
-      // Include the user ID in the exam data
       const examData = { ...exam, created_by: userId };
 
       console.log('Submitting exam:', examData);
 
-      const response = await axios.post(`${baseUrl}/exams/`, examData, { headers });
-      console.log('Exam created successfully:', response.data);
 
-      
-      // Reset form and errors
+      const response = await addExam(examData);
+      console.log('Exam created successfully:', response);
+
       setExam({ exam_name: '', description: '', duration: '' });
       setErrors({});
       navigate('/admin/exams');

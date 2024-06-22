@@ -7,7 +7,7 @@ import '../../css/EditQuestion.css';
 export default function EditQuestion() {
     const location = useLocation();
     const { state } = location;
-    const question = state ? state.question : null;  // Handle the case where state might be null
+    const question = state ? state.question : null;  
     const { id: questionId } = useParams();
     const navigate = useNavigate();
 
@@ -24,9 +24,7 @@ export default function EditQuestion() {
                 options: question.options
             });
         } else {
-            // Fetch question data if state is null (e.g., page accessed directly via URL)
-            // Use questionId to fetch question data from the backend and set it in formData
-            // Example: fetchQuestionById(questionId);
+            
         }
     }, [question, questionId]);
 
@@ -71,7 +69,7 @@ export default function EditQuestion() {
         }
         try {
             await updateQuestion(formData, questionId);
-            navigate(`/admin/exams/${question.exam_id}`); // Navigate back to the exam page
+            navigate(`/admin/exams/${question.exam_id}`);
         } catch (error) {
             console.error('Failed to update the question:', error);
         }
