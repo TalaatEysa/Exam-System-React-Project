@@ -121,8 +121,9 @@ export function TakeExam() {
       <form onSubmit={handleSubmit} className="mx-5">
         {exam.questions.map((question, index) => (
           <div key={question.id} className="mb-4 question-container mx-5">
-            <h4>Question {index + 1}:</h4>
-            <h5>{question.question_text}</h5>
+            <h4>
+              {index + 1}. {question.question_text} ?
+            </h4>
             {question.options.map((option, optionIndex) => (
               <div
                 key={option.id}

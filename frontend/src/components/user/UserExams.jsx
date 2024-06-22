@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { getAllExams, getUserResults } from '../../api/axios';
 import { Link } from 'react-router-dom';
-
+import '../../css/UserExams.css';
 export function UserExams() {
   const [exams, setExams] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -49,7 +49,7 @@ export function UserExams() {
       <div className="row">
         {exams.map((exam) => (
           <div className="col-md-4 mb-4" key={exam.id}>
-            <div className="card">
+            <div className="card card-bg-color">
               <div className="card-body">
                 <h2 className="card-title text-center">{exam.name}</h2>
                 <p className="card-text text-center">{exam.description}</p>
