@@ -46,8 +46,6 @@ export default function AddExam() {
       const examData = { ...exam, created_by: userId };
 
       console.log('Submitting exam:', examData);
-
-
       const response = await addExam(examData);
       console.log('Exam created successfully:', response);
 

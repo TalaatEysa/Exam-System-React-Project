@@ -2,8 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { getAllExams, deleteExamById } from '../../api/axios';
 import { Link } from 'react-router-dom';
 import Swal from 'sweetalert2';
-import '../../css/Exams.css'
-
+import '../../css/Exams.css';
 
 export default function Exams() {
     const [exams, setExams] = useState([]);
@@ -23,7 +22,7 @@ export default function Exams() {
         };
 
         fetchData();
-    }, []); 
+    }, []);
 
     const handleDelete = async (examId) => {
         Swal.fire({
@@ -52,46 +51,56 @@ export default function Exams() {
     };
 
     return (
-      <div className="container mt-2">
-        <h1 className="mb-2 text-center">Exams</h1>
+        <div className="container mt-2">
+            <h1 className="mb-2 text-center">Exams</h1>
 
-        <Link to={`/admin/addExam`} className="btn btn-success my-2">
-          Create Exam
-        </Link>
+            <Link to={`/admin/addExam`} className="btn btn-success my-2">
+                Create Exam
+            </Link>
 
-        {loading && <div>Loading...</div>}
-        {error && <div className="alert alert-danger">{error}</div>}
-        <div className="row">
-          {exams.map((exam) => (
-            <div className="col-md-4 mb-4" key={exam.id}>
-              <div className="card">
-                <div className="card-body">
-                  <h5 className="card-title">Name: {exam.name}</h5>
-                  <p className="card-text">Description: {exam.description}</p>
-                  <Link
-                    to={`/admin/exams/${exam.id}`}
-                    className="btn btn-primary mx-1"
-                  >
-                    View
-                  </Link>
-                  <button
-                    onClick={() => handleDelete(exam.id)}
-                    className="btn btn-danger mx-1"
-                  >
-                    Delete
-                  </button>
-                  <Link
-                    to={`/admin/exams/editExam/${exam.id}`}
-                    state={{ exam }}
-                    className="btn btn-warning mx-1"
-                  >
-                    Update
-                  </Link>
-                </div>
-              </div>
+            {loading && <div>Loading...</div>}
+            {error && <div className="alert alert-danger">{error}</div>}
+
+            <div className="table-responsive">
+                <table className="table table-hover table-bordered exams-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Description</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {exams.map((exam) => (
+                            <tr key={exam.id}>
+                                <td>{exam.name}</td>
+                                <td>{exam.description}</td>
+                                <td className="actions-cell">
+                                    <Link
+                                        to={`/admin/exams/${exam.id}`}
+                                        className="btn btn-primary mx-1"
+                                    >
+                                        View
+                                    </Link>
+                                    <button
+                                        onClick={() => handleDelete(exam.id)}
+                                        className="btn btn-danger mx-1"
+                                    >
+                                        Delete
+                                    </button>
+                                    <Link
+                                        to={`/admin/exams/editExam/${exam.id}`}
+                                        state={{ exam }}
+                                        className="btn btn-warning mx-1"
+                                    >
+                                        Update
+                                    </Link>
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
             </div>
-          ))}
         </div>
-      </div>
     );
 }

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { addQuestions } from '../../api/axios'; // Adjust the import path
+import { addQuestions } from '../../api/axios'; 
 import Swal from 'sweetalert2';
 import '../../css/AddQuestions.css';
 
