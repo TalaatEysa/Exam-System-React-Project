@@ -5,7 +5,7 @@ import Swal from 'sweetalert2';
 import '../../css/AddQuestions.css';
 
 const AddQuestions = () => {
-  const { examId } = useParams(); // Get the examId from the URL
+  const { examId } = useParams(); 
   const navigate = useNavigate()
   const [questionText, setQuestionText] = useState('');
   const [options, setOptions] = useState([
