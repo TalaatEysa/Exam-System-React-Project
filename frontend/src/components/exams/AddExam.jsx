@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import '../../css/AddExam.css'; // Assuming you have a separate CSS file for styling
 import { useNavigate } from 'react-router-dom';
-import { addExam } from '../../api/axios'; // Importing the addExam function
 
 export default function AddExam() {
+  const baseUrl = "http://127.0.0.1:8000/api";
   const navigate = useNavigate();
   const [exam, setExam] = useState({
     exam_name: '',
@@ -43,15 +44,20 @@ export default function AddExam() {
       const token = localStorage.getItem('auth_token');
       const userId = localStorage.getItem('id'); // Retrieve the user ID from localStorage
 
+      const headers = {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json'
+      };
+
       // Include the user ID in the exam data
       const examData = { ...exam, created_by: userId };
 
       console.log('Submitting exam:', examData);
 
-      // Using the imported addExam function
-      const response = await addExam(examData, token);
+      const response = await axios.post(`${baseUrl}/exams/`, examData, { headers });
       console.log('Exam created successfully:', response.data);
 
+      
       // Reset form and errors
       setExam({ exam_name: '', description: '', duration: '' });
       setErrors({});
@@ -64,7 +70,7 @@ export default function AddExam() {
 
   return (
     <div className="add-exam-container">
-      <h1>Add Exam</h1>
+      <h1 className="header">Add Exam</h1>
       <form className="exam-form" onSubmit={handleSubmit}>
         <div className="form-group">
           <label htmlFor="exam_name">Exam Name</label>
@@ -104,7 +110,7 @@ export default function AddExam() {
           />
           {errors.duration && <span className="error text-danger">{errors.duration}</span>}
         </div>
-        <button type="submit" className="submit-button">Submit</button>
+        <button type="submit" className="submit-btn">Submit</button>
       </form>
     </div>
   );

@@ -1,28 +1,41 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate, useParams, useLocation } from 'react-router-dom';
-import { updateExam } from '../../api/axios';
+import { useNavigate, useParams } from 'react-router-dom'; // Assuming you use React Router for navigation
+import { getExamByID, updateExam } from '../../api/axios';
+import '../../css/EditExam.css'; // Assuming you have a separate CSS file for styling
+
 
 export default function EditExam() {
-    const { examId } = useParams();
+    const { examId } = useParams(); // Get examId from URL params
     const navigate = useNavigate();
-    const location = useLocation();
-    const exam = location.state?.exam;
-
-    const [formData, setFormData] = useState({
-        exam_name: exam?.name || '',
-        description: exam?.description || '',
-        created_by: localStorage.getItem('id'),
-        duration: exam?.duration || ''
-    });
-
-    const [validationErrors, setValidationErrors] = useState({}); 
+    const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [formData, setFormData] = useState({
+        exam_name: '',
+        description: '',
+        created_by: '',
+        duration: ''
+    });
+    const [validationErrors, setValidationErrors] = useState({}); // State for validation errors
 
     useEffect(() => {
-        if (!exam) {
-            setError('No exam data available.');
-        }
-    }, [exam]);
+        const fetchExam = async () => {
+            try {
+                const response = await getExamByID(examId);
+                setFormData({
+                    exam_name: response.data.name,
+                    description: response.data.description,
+                    created_by: localStorage.getItem('id'),
+                    duration: response.data.duration
+                });
+            } catch (error) {
+                setError('Failed to fetch exam data. Please try again.');
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchExam();
+    }, [examId]);
 
     const handleChange = (e) => {
         setFormData({
@@ -61,13 +74,17 @@ export default function EditExam() {
         }
     };
 
-    if (!exam) {
-        return <div className="alert alert-danger">Failed to load exam data. Please try again.</div>;
+    if (loading) {
+        return <div>Loading...</div>;
+    }
+
+    if (error) {
+        return <div className="alert alert-danger">{error}</div>;
     }
 
     return (
-        <div className="container mt-4">
-            <h1>Edit Exam</h1>
+        <div className="edit-exam-container">
+            <h1 className='header'>Edit Exam</h1>
             <form onSubmit={handleSubmit}>
                 <div className="form-group">
                     <label htmlFor="exam_name">Exam Name</label>
@@ -106,7 +123,7 @@ export default function EditExam() {
                     />
                     {validationErrors.duration && <span className="text-danger">{validationErrors.duration}</span>}
                 </div>
-                <button type="submit" className="btn btn-primary">Save Changes</button>
+                <button type="submit" className="btn btn-primary submit-btn">Save Changes</button>
             </form>
         </div>
     );

@@ -18,6 +18,9 @@ const StudentRegistration = () => {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
+
+    // Clear error when user starts typing
+    setErrors({ ...errors, [name]: '' });
   };
 
   const handleSubmit = async (e) => {
@@ -28,6 +31,13 @@ const StudentRegistration = () => {
     
     // Check for client-side errors
     const newErrors = {};
+    if (!/^[A-Za-z\s]+$/.test(formData.name)) {
+      newErrors.name = "Name can only contain letters and spaces.";
+    }
+    if (!/^[A-Za-z]+[A-Za-z0-9]*$/.test(formData.user_name)) {
+      newErrors.user_name = "Username must contain letters or a combination of letters and numbers.";
+    }
+
     if (formData.password !== formData.password_confirmation) {
       newErrors.password_confirmation = "Password and Confirm Password do not match.";
     }
@@ -59,6 +69,7 @@ const StudentRegistration = () => {
         <div>
           <label>Name:</label>
           <input type="text" name="name" value={formData.name} onChange={handleChange} required />
+          {errors.name && <span className="error-message">{errors.name}</span>}
         </div>
         <div>
           <label>Username:</label>
